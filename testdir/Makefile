@@ -4,9 +4,6 @@ TESTDIR = ./
 CLOUDDIR = ../cloud_git
 SOURCES = $(CODEDIR)/helloworld/guestbook.py \
 	$(CODEDIR)/webpages/*.py 
-	#$(CODEDIR)/webpages/mainpage.py \
-	#$(CODEDIR)/webpages/labpages.py \
-	#$(CODEDIR)/webpages/meow.py
 APPFILE = $(CODEDIR)/webpages/app.yaml #There should only be one 
 HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/helloworld/stylesheets

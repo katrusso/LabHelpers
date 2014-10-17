@@ -1,6 +1,6 @@
 import os
 import urllib
-
+import cgi
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -15,10 +15,42 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True)
 """
 
+QUESTION_HTML = """\
+<html>
+  <body>
+    <form action="" method="post">
+      If Albert picks choice 2, Charles picks the choice above Bert, and Debby chooses the choice below Albert, which choice will Eugene select to ensure at least one of them gets the correct answer for every question? <br>
+      <input type="radio" name="q1" value="c">Choice 1<br>
+      <input type="radio" name="q1" value="w">Choice 2<br>
+      <input type="radio" name="q1" value="w">Choice 3<br>
+      <input type="radio" name="q1" value="w">Choice 4<br>
+      <input type="radio" name="q1" value="w">Choice 5<br>
+      The answer to this question is a liar. <br>
+      <input type="radio" name="q2" value="w">Choice 2 tells the truth<br>
+      <input type="radio" name="q2" value="w">The liar is between 2 truths<br>
+      <input type="radio" name="q2" value="c">This choice does not lie<br>
+      <input type="radio" name="q2" value="c">Choice 3 is a liar<br>
+      <input type="radio" name="q2" value="w">The liar is one of the two choices above.<br>
+
+      <div><input type="submit" value="Submit"></div>
+    </form>
+  </body>
+</html>
+
+"""
+
 class StaticLabPage(webapp2.RequestHandler):
     def get(self):
-        self.response.write('meow<br>')
-        self.response.write(self.request.uri)
+        self.response.write(QUESTION_HTML)
+    def post(self):
+        question = 2
+        for i in range(question):
+            if cgi.escape(self.request.get(''.join(['q',str(i+1)])))=='c':
+                self.response.write('correct')
+            else:
+                self.response.write('wrong')
+            self.response.write('<br>')
+
 
 class DynamicLabPage(webapp2.RequestHandler):
     def get(self):

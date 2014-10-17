@@ -27,8 +27,8 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
       </form>
     </div>
     <br>
-    <a href="/StaticLab/1"> Lab 1 </a> &nbsp &nbsp &nbsp <a href="/DynamicLab/1"> Practice Problems for Lab 1 </a> <br>
-    <a href="/StaticLab/2"> Lab 2 </a> <br>
+    <a href="/StaticLab/1/"> Lab 1 </a> &nbsp &nbsp &nbsp <a href="/DynamicLab/1/"> Practice Problems for Lab 1 </a> <br>
+    <a href="/StaticLab/2/"> Lab 2 </a> <br>
     <div align="right">
       <form action="/meow" method="link">
         <div><input type="submit" value="Meow"></div>
@@ -50,9 +50,9 @@ class MyPage(webapp2.RequestHandler):
 #List of all pages for the application
 application = webapp2.WSGIApplication([
     ('/', MyPage),
-    ('/StaticLab/1', labpages.StaticLabPage),
-    ('/DynamicLab/1', labpages.DynamicLabPage),
-    ('/StaticLab/2', labpages.StaticLabPage),
+    ('/StaticLab/1/', labpages.StaticLabPage),
+    ('/DynamicLab/1/', labpages.DynamicLabPage),
+    ('/StaticLab/2/', labpages.StaticLabPage),
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
 ], debug=True)
