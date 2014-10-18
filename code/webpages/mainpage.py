@@ -7,9 +7,11 @@ from google.appengine.ext import ndb
 import jinja2
 import webapp2
 
+#Other webpage files
 import labpages
 import meow
 import comment
+import database
 """
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -55,4 +57,5 @@ application = webapp2.WSGIApplication([
     ('/StaticLab/2/', labpages.StaticLabPage),
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
+    ('/dataentry', database.AddQuestion), 
 ], debug=True)
