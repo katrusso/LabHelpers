@@ -3,7 +3,7 @@ import urllib
 
 import webapp2
 
-MEOW_PAGE_HTML= '\
+MEOW_PAGE_HTML= '''\
 <html>
   <body>
     <center>
@@ -13,7 +13,7 @@ MEOW_PAGE_HTML= '\
     </center>
   </body>
 </html>
-'
+'''
 
 class MeowPage(webapp2.RequestHandler):
     def get(self):

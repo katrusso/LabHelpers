@@ -8,7 +8,7 @@ import webapp2
 
 import questions
 
-QUESTION_HTML_INPUT='\
+QUESTION_HTML_INPUT='''\
 <html>
   <body>
     <form action="" method="post">
@@ -40,7 +40,7 @@ QUESTION_HTML_INPUT='\
     </form>
   </body>
 </html>
-'
+'''
 class AddQuestion(webapp2.RequestHandler):
     def get(self):
         self.response.write(QUESTION_HTML_INPUT)
