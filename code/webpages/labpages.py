@@ -32,6 +32,7 @@ class StaticLabPage(webapp2.RequestHandler):
             self.response.write('<br>')
         self.response.write('<br><div><input type="submit" value="Submit"></div>')
         self.response.write('</form></body></html>')
+
     def post(self):
         questions_query = questions.Question.query(
             ancestor=questions.lab_key(self.getLabID())).order(questions.Question.number)
