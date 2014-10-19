@@ -16,14 +16,14 @@ copy:
 	cp $(SOURCES) .
 	cp $(APPFILE) .
 	cp $(HTMLFILES) .
-	cp $(SYTLEDIRS) . -r 
+	cp -R $(SYTLEDIRS) .
 appengine:
 	$(GOOGLEPATH) ./
 backup:
 	cp $(SOURCES) $(BACKUPDIR)
 	cp $(APPFILE) $(BACKUPDIR)
 	cp $(HTMLFILES) $(BACKUPDIR)
-	cp $(SYTLEDIRS) $(BACKUPDIR) -r 
+	cp -R $(SYTLEDIRS) $(BACKUPDIR)
 
 backupengine:
 	$(GOOGLEPATH) $(BACKUPDIR)
@@ -32,11 +32,11 @@ clean:
 	rm *.py*
 	rm *.yaml
 	rm *.html
-	rm stylesheets -r
+	rm -R stylesheets
 
 cloudgit:
 	gcloud init lab-helpers-546
 	mv lab-helpers-546 $(CLOUDDIR)
 
 cloudpush:
-	cp -r $(CODEDIR) $(TESTDIR) $(CLOUDDIR)
+	cp -R $(CODEDIR) $(TESTDIR) $(CLOUDDIR)
