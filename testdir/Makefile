@@ -10,10 +10,7 @@ HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/helloworld/stylesheets
 BACKUPDIR = ../backup
 
-all: setgoogle copy
-
-setgoogle:
-	./google.sh
+all: copy
 
 copy:
 	cp $(SOURCES) .
