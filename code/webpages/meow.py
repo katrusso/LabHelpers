@@ -8,7 +8,7 @@ MEOW_PAGE_HTML= """\
   <body>
     <center>
     <iframe width="840" height="600"
-      src="http://www.youtube.com/embed/DXUAyRRkI6k">
+      src="http://www.youtube.com/embed/DXUAyRRkI6k?rel=0&autoplay=1 ">
     </iframe> 
     </center>
   </body>

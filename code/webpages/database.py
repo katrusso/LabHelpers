@@ -13,13 +13,13 @@ QUESTION_HTML_INPUT="""\
 <html>
   <body>
     <form action="" method="post">
-      Choose Lab ID: <br>
+      Choose Lab Number: <br>
       <input type="radio" name="labid" value="1">Lab 1<br>
       <input type="radio" name="labid" value="2">Lab 2<br>
       <input type="radio" name="labid" value="3">Lab 3<br>
       <input type="radio" name="labid" value="4">Lab 4<br>
       <input type="radio" name="labid" value="4444">Practice Problem<br>
-      <div><textarea name="number" rows="1" cols="5"></textarea></div>
+      Question Number: <div><textarea name="number" rows="1" cols="5"></textarea></div>
       Enter Question: <br>
       <div><textarea name="question" rows="5" cols="60"></textarea></div>
       Choice 1: <br>
@@ -61,4 +61,5 @@ class AddQuestion(webapp2.RequestHandler):
         question.choices = choice_strs
         question.answers = correct_answers
         question.put()
+        self.response.write(QUESTION_HTML_INPUT)
 

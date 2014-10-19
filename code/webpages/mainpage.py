@@ -12,13 +12,6 @@ import labpages
 import meow
 import comment
 import database
-"""
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-"""
-
 
 MAIN_PAGE_FOOTER_TEMPLATE = """\
 <html>
@@ -34,6 +27,9 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
     <div align="right">
       <form action="/meow" method="link">
         <div><input type="submit" value="Meow"></div>
+      </form>
+      <form action="/dataentry" method="link">
+        <div><input type="submit" value="Enter Questions"></div>
       </form>
     </div>
   </body>
