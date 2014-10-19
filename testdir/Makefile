@@ -1,4 +1,4 @@
-GOOGLEPATH = ~/google-cloud-sdk/bin/dev_appserver.py
+
 CODEDIR = ../code
 TESTDIR = ./
 CLOUDDIR = ../cloud_git
@@ -10,7 +10,10 @@ HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/helloworld/stylesheets
 BACKUPDIR = ../backup
 
-all: copy
+all: setgoogle copy
+
+setgoogle:
+	./google.sh
 
 copy:
 	cp $(SOURCES) .
