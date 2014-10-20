@@ -1,0 +1,13 @@
+application: sdd-lh
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: labhelper.application
+
+libraries:
+- name: webapp2
+  version: latest
