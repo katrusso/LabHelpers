@@ -12,7 +12,7 @@ import meow
 import comment
 import database
 
-MAIN_PAGE_FOOTER_TEMPLATE = '\
+MAIN_PAGE_FOOTER_TEMPLATE = '''\
 <html>
   <body>
     <div align="right">
@@ -33,7 +33,7 @@ MAIN_PAGE_FOOTER_TEMPLATE = '\
     </div>
   </body>
 </html>
-'
+'''
 
 class MyPage(webapp2.RequestHandler):
     def get(self):
