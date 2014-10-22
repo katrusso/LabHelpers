@@ -1,9 +1,0 @@
-<h1>{{ question.question_text }}</h1>
-
-<ul>
-{% for answer in question.answer_set.all %}
-    <li>{{answer.answer_text }} -- {{ answer.submit }} submit{{ answer.submit|pluralize }}</li>
-{% endfor %}
-</ul>
-
-<a href="{% url 'labhelpers:lab_detail' question.id %}">Answer again?</a>
