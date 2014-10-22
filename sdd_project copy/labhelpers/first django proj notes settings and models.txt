@@ -1,0 +1,63 @@
+
+A model is the single, definitive source of data about your data. 
+It contains the essential fields and behaviors of the data you’re storing. 
+Django follows the DRY Principle.
+
+The goal is to define your data model in one place and automatically derive things from it.
+
+This includes the migrations - unlike in Ruby On Rails, for example, migrations are 
+entirely derived from your models file, and are essentially just a history that Django can
+ roll through to update your database schema to match your current models.
+
+# Each model is represented by a class that subclasses django.db.models.Model. 
+#Each model has a number of class variables, each of which represents a db field in the model.
+
+
+Each field is represented by an instance of a Field class – e.g., CharField for character fields 
+and DateTimeField for datetimes. This tells Django what type of data each field holds.
+
+The name of each Field instance (e.g. question_text or pub_date) is the field’s name, 
+in machine-friendly format. You’ll use this value in your Python code, and your database 
+will use it as the column name.
+
+You can use an optional first positional argument to a Field to designate a human-readable 
+name. That’s used in a couple of introspective parts of Django, and it doubles as 
+documentation. If this field isn’t provided, Django will use the machine-readable name. 
+In this example, we’ve only defined a human-readable name for Question.pub_date. 
+For all other fields in this model, the field’s machine-readable name will suffice as its 
+human-readable name.
+
+CharField, for example, requires that you give it a max_length. 
+That’s used not only in the database schema, but in validation
+
+Finally, note a relationship is defined, using ForeignKey. 
+That tells Django each Choice is related to a single Question. 
+Django supports all the common database relationships: many-to-one, many-to-many and 
+one-to-one.
+
+
+https://docs.djangoproject.com/en/1.7/intro/tutorial01/
+
+The migrate command takes all the migrations that haven’t been applied 
+(Django tracks which ones are applied using a special table in your database 
+called django_migrations) and runs them against your database - essentially, 
+synchronizing the changes you made to your models with the schema in the database.
+
+Migrations are very powerful and let you change your models over time, as you develop your 
+project, without the need to delete your database or tables and make new ones - it 
+specializes in upgrading your database live, without losing data. We’ll cover them in more 
+depth in a later part of the tutorial, but for now, remember the three-step guide to making 
+model changes:
+
+Change your models (in models.py).
+Run python manage.py makemigrations to create migrations for those changes
+Run python manage.py migrate to apply those changes to the database.
+
+The reason there’s separate commands to make and apply migrations is because you’ll commit 
+migrations to your version control system and ship them with your app; they not only make 
+your development easier, they’re also useable by other developers and in production.
+
+It’s important to add __str__() methods to your models, not only for your own sanity when 
+dealing with the interactive prompt, but also because objects’ representations are used 
+throughout Django’s automatically-generated admin.
+

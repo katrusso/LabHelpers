@@ -1,0 +1,94 @@
+{% if lab.id %}
+    <ul>
+    {% for question in question_list %}
+        <li>{{question.question_text}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+
+<!--
+
+<h1>{{ lab.lab_name }}</h1>
+<ul>
+{% for answer in question.answer_set.all %}
+    <li>{{answer.answer_text}}</li>
+{% endfor %}
+</ul>
+
+-->
+
+<!--
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'labhelpers:submit' question.id %}" method="post">
+{% csrf_token %}
+{% for answer in question.answer_set.all %}
+    <input type="radio" name="answer" id=answer{{ forloop.counter }}" value="{{ answer.id }}"/>
+    <label for="answer"{{ forloop.counter }}">{{ answer.answer_text }}</label><br />
+{% endfor %}
+<input type="submit" value="Submit" />
+</form>
+-->
+<!--
+The above template displays a radio button for each question choice. 
+The value of ea radio button is the associated question choice's ID.
+
+The name of ea radio button is "choice"
+That means, when someone selects one of the radio buttons and submits the form, it'll send 
+the POST data choice=# where # is the ID of the selected choice.
+
+Using method="post" instead of method="get" to alter the data server side.
+
+forloop.counter = # of times the "for" tag has gone through its loop
+
+Django protects against Cross Site Request Forgeries (occur with "post" method)
+ - all POST forms that are targeted at internal URLs should use the csrf token template tag
+ 
+Now we need to create a view that handles the submitted data and does something with it:
+EDIT polls/view.py
+-->
+
+
+
+<!-- 3rd MODIFICATION
+<h1>{{question.question_text}}</h1>
+<ul>
+{% for choice in question.choice_set.all %}
+    <li>{{choice.choice_text}}</li>
+{% endfor %}
+</ul>
+-->
+
+<!--<?
+ABOUT TEMPLATES::
+The template system uses dot-lookup syntax to access variable attributes. 
+In the example of {{ question.question_text }}, first Django does a dictionary lookup on 
+the object question. 
+
+Failing that, it tries an attribute lookup - which works, in this case. 
+If attribute lookup had failed, it would've tried a list-index lookup.
+
+Method-calling happens in the curly brackets: % for % loop: 
+question.choice_set.all is interpreted as the Python code 
+question.choice_set.all(), which returns an iterable of Choice objects and is suitable 
+for use in the curly brackets % for % tag.
+?> -->
+
+<!--  2nd MODIFICATION
+{{question}}
+-->
+
+<!-- 1st MODIFICATION
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <!--YOU NEED TO FIGURE OUT HOW TO CUSTOMIZE THIS TEMPLATE -->
+         <li><a href="/polls/{{question.id }}/">{{question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No question details available. YOU NEED TO FIGURE OUT HOW TO CUSTOMIZE THIS TEMPLATE</p>
+{% endif %}
+-->
