@@ -1,0 +1,6 @@
+1. Faraday's Law and Lenz's Law
+Inductors and Transformers
+LC,RC,RL, Transients
+AC circuits
+Waves
+Displacement Current and maxwell's equations
