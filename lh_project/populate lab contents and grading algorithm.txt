@@ -1,0 +1,53 @@
+
+getLabContents(lab_id):
+    this_labs_questions = questions.objects.all.filter('lab_id'=lab_id).sort(topic_id, then question id)
+    fetch this_labs_questions
+    
+    for question in this_labs_questions:
+        this_labs_hints = hints.objects.all.filter(question_id)
+        this_labs_answers = answers.objects.all.filter(question_id)
+        fetch this_labs_hints
+        fetch this_labs_answers
+        
+    this_labs_topics = topics.objects.all.filter(lab_id)
+    this_labs_coach = coach_data.objects.all.filter(topic_id)
+    for topic in this_labs_topics
+        fetch this labs coach
+      
+Style sheet: (before lab submission)
+header: topic_id    link to coach_data (open in pop-up? or see if style sheet can open dynamically)
+    Questions associated with topic_id and lab_id   link to hint (open in pop-up)
+    Multiple choice answers
+    submit button
+
+Style sheet: (after lab submission)
+header: topic_id
+    Questions associated with topic_id and lab_id 
+        if selected answer != correct_answer
+            display selected answer in red
+            display correct_answer in green
+        else:
+            display selected answer in green (use tuple)
+
+
+    
+gradeLab(lab_id):
+    for topic in topics:
+        question_count_per_section = this_labs_questions.filter(topic_id_).count #count the number of questions per topic
+        for answer in answers:
+            if selected answer != correct answer:
+                wrong +=1
+    section_grade = wrong.sum / question_count_per_section #reinitialize wrong to 0
+    if section grade < rework_percentage, 
+        practice lab topics.append topic to array
+    
+#GENERATE CUSTOM LAB
+Lab_name = "Custom Probs" + lab_name (associated with original lab_id)
+for topic in practice lab topics
+    getLabContents(lab 444)
+    gradeLab(lab 444)
+    
+style sheet: (homepage)
+header: Lab Helpers 
+sub header: italics motto (you're not dumb, this lab is hard)
+lab_list    
