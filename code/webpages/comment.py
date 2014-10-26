@@ -69,7 +69,7 @@ class CommentPage(webapp2.RequestHandler):
                             (sign_query_params, cgi.escape(guestbook_name),
                              url, url_linktext))
         
-class Guestbook(webapp2.RequestHandler):
+class Comment(webapp2.RequestHandler):
     def post(self):
         guestbook_name = self.request.get('guestbook_name',DEFAULT_GUESTBOOK_NAME)
         greeting = Greeting(parent=guestbook_key(guestbook_name))
