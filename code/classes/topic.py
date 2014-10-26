@@ -1,12 +1,9 @@
 
 from google.appengine.ext import ndb
 
-import topic
-
-def topic_key():
-    return ndb.Key('Topic')
+def topic_key(topic_id=0):
+    return ndb.Key('Topic',topic_id)
 
 class Topic(ndb.Model):
-    id = ndb.IntegerProperty()
     name = ndb.StringProperty()
     

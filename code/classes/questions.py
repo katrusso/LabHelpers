@@ -11,4 +11,4 @@ class Question(ndb.Model):
     question = ndb.StringProperty()
     choices = ndb.StringProperty(repeated=True)
     answers = ndb.IntegerProperty(repeated=True)
-#    topic = ndb.StructuredProperty(topic.Topic)
+    topic = ndb.StringProperty()

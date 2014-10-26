@@ -8,6 +8,7 @@ import webapp2
 
 from html import *
 import questions
+import topic
 
 class Admin(webapp2.RequestHandler):
     def get(self):
@@ -32,14 +33,23 @@ class AddQuestion(webapp2.RequestHandler):
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Choose Lab Number: <br>")
         self.response.write(RADIO_HTML.substitute(name="labid",
-                                                         value=1,
-                                                         text="Test Lab"))
+                                                  value=1,
+                                                  text="Test Lab"))
         self.response.write(RADIO_HTML.substitute(name="labid",
-                                                         value=17,
-                                                         text="Lab 17"))
+                                                  value=17,
+                                                  text="Lab 17"))
         self.response.write(RADIO_HTML.substitute(name="labid",
-                                                         value=4444,
-                                                         text="Practice Problems"))
+                                                  value=4444,
+                                                  text="Practice Problems"))
+
+        self.response.write("Choose Topic: <br>")
+        topic_query = topic.Topic.query(ancestor=topic.topic_key(1))
+        topic_list = topic_query.fetch()
+        for topic_object in topic_list:
+            self.response.write(RADIO_HTML.substitute(name="topic",
+                                                      value=topic_object.name,
+                                                      text=topic_object.name))
+
         self.response.write("Question Number: ")
         self.response.write(TEXTBOX_HTML.substitute(name="number",
                                                     row=1,
@@ -67,6 +77,7 @@ class AddQuestion(webapp2.RequestHandler):
     def post(self):
         lab_id = int(self.request.get('labid'))
         number = int(self.request.get('number'))
+        topic_name = self.request.get('topic')
         question_str = self.request.get('question')
         choice_strs = self.request.get('choice', allow_multiple=True)
         correct_answer_strs = self.request.get('correct', allow_multiple=True)
@@ -78,9 +89,25 @@ class AddQuestion(webapp2.RequestHandler):
         question.question = question_str
         question.choices = choice_strs
         question.answers = correct_answers
+        question.topic = topic_name
         question.put()
         self.redirect(self.request.uri)
 
 class AddTopic(webapp2.RequestHandler):
     def get(self):
-        self.response.write('bleh')
+        self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(FORM_HTML.substitute(action="",method="post"))
+        self.response.write("Enter topic name:")
+        self.response.write(TEXTBOX_HTML.substitute(name="topic",
+                                                    row=1,
+                                                    col=30,
+                                                    text=""))
+        self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
+        self.response.write("</form>")
+        self.response.write(CLOSE_HTML)
+    def post(self):
+        topic_name=self.request.get('topic')
+        topic_object = topic.Topic(parent=topic.topic_key(1))
+        topic_object.name = topic_name
+        topic_object.put()
+        self.redirect(self.request.uri)

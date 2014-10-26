@@ -30,12 +30,15 @@ class StaticLabPage(webapp2.RequestHandler):
         question_list = questions_query.fetch()
         #run through each question creating a multiple choice question for it
         for question in question_list:
+            self.num=self.num+1
+            self.response.write(str(self.num)+". ")
             self.response.write(question.question)
+            self.response.write("<br>")
             for i in range(len(question.choices)):
                 ans="wrong"
                 if i+1 in question.answers:
                     ans="correct"
-                self.response.write(RADIO_HTML.substitute(name="q"+str(question.number),
+                self.response.write(RADIO_HTML.substitute(name="q"+str(self.num),
                                                           value=ans,
                                                           text=question.choices[i]))
             self.response.write("<br>")

@@ -2,7 +2,9 @@ from string import Template
 
 OPEN_HTML=Template('''\
 <html>
-  $head
+  <head>
+    $head
+  </head>
   <body>
 ''')
 
