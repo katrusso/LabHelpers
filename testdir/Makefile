@@ -7,7 +7,7 @@ SOURCES = $(CODEDIR)/webpages/*.py  \
 	$(CODEDIR)/html/html_constants.py 
 APPFILE = $(CODEDIR)/webpages/app.yaml #There should only be one 
 HTMLFILES = $(CODEDIR)/helloworld/index.html
-SYTLEDIRS = $(CODEDIR)/helloworld/stylesheets
+SYTLEDIRS = $(CODEDIR)/webpages/stylesheets
 BACKUPDIR = ../backup
 
 all: copy

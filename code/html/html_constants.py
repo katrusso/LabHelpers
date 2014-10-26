@@ -42,7 +42,7 @@ TAB_HTML = '''\
 '''
 
 OPEN_TABLE_HTML = Template('''\
-<table style="width:$percent%">
+<table name=$name style="width:$percent%">
 ''')
 
 TABLE_COLUMN_HTML = Template('''\
