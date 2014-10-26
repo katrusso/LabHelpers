@@ -24,6 +24,7 @@ class MyPage(webapp2.RequestHandler):
             #otherwise load mainpage
             else:
                 self.response.write(OPEN_HTML.substitute(head='''<link type="text/css" rel="stylesheet" href="/stylesheets/home.css" />'''))
+                self.response.write('''<div id="main">''')
                 self.response.write(ALIGN_HTML.substitute(align="right"))
                 self.response.write(FORM_HTML.substitute(action="", 
                                                          method="post"))
@@ -43,8 +44,8 @@ class MyPage(webapp2.RequestHandler):
                                                          method="link"))
                 self.response.write(SUBMIT_HTML.substitute(value="Meow"))
                 self.response.write("</form>")
-                self.response.write("<div><br>")
-                
+                self.response.write("</div><br>")
+                self.response.write("</div>")
         # If user is not logged in redirect to log in
         else:
             self.redirect(users.create_login_url(self.request.uri))
