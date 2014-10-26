@@ -81,7 +81,7 @@ class Comment(webapp2.RequestHandler):
         greeting.put()
 
         query_params = {'guestbook_name': guestbook_name}
-        self.redirect('/?' + urllib.urlencode(query_params))
+        self.redirect('/comment?' + urllib.urlencode(query_params))
 
 
 
