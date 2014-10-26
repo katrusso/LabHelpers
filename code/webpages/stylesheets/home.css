@@ -1,0 +1,77 @@
+div#header {
+  position: absolute;
+  left: -1px;
+  top: 8px;
+  width:100%;
+  height:90px;
+  z-index: 1
+  border-top-color: Blue;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-bottom-color: Blue;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: Blue;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: Blue;
+  border-right-style: solid;
+  border-right-width: 1px;
+  }
+  
+div#main {
+  margin-top: 100px;
+  margin-left: 110px;
+  margin-right: 110px;
+  padding:15px;
+}
+
+
+div#left {
+    position: absolute;
+    left: -1px; 
+    top: 100px; 
+    width:100px; 
+    height:200px; 
+    padding:5px; float-left;
+    border-left-color: Blue;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: Blue;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+
+div#footer {
+  position: absolute;
+  left: -1px;
+  top: 310px;
+  width:100%;
+  height:90px;
+  z-index: 1
+  border-top-color: Blue;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-bottom-color: Blue;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-left-color: Blue;
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: Blue;
+  border-right-style: solid;
+  border-right-width: 1px;
+  }
+
+
+
+li a {
+	color:  green;
+}
+
+/*
+body {
+    background: white url("images/background.gif") no-repeat center bottom;
+}
+*/
