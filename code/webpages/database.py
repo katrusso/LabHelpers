@@ -11,12 +11,13 @@ import questions
 QUESTION_HTML_INPUT='''\
 <html>
   <body>
+    <form action="/" method="post">
+        <div><input type="submit" value="Sign Out"></div>
+      </form>
     <form action="" method="post">
       Choose Lab Number: <br>
-      <input type="radio" name="labid" value="1">Lab 1<br>
-      <input type="radio" name="labid" value="2">Lab 2<br>
-      <input type="radio" name="labid" value="3">Lab 3<br>
-      <input type="radio" name="labid" value="4">Lab 4<br>
+      <input type="radio" name="labid" value="1">Test Lab<br>
+      <input type="radio" name="labid" value="17">Lab 17<br>
       <input type="radio" name="labid" value="4444">Practice Problem<br>
       Question Number: <div><textarea name="number" rows="1" cols="5"></textarea></div>
       Enter Question: <br>
@@ -61,4 +62,3 @@ class AddQuestion(webapp2.RequestHandler):
         question.answers = correct_answers
         question.put()
         self.response.write(QUESTION_HTML_INPUT)
-

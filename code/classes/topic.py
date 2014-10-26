@@ -3,10 +3,10 @@ from google.appengine.ext import ndb
 
 import topic
 
-def lab_key(labid=0):
-    return ndb.Key('Labs', labid)
+def topic_key():
+    return ndb.Key('Topic')
 
-class Question(ndb.Model):
+class Topic(ndb.Model):
     number = ndb.IntegerProperty()
     question = ndb.StringProperty()
     choices = ndb.StringProperty(repeated=True)
