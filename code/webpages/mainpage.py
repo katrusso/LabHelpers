@@ -11,7 +11,7 @@ import labpages
 import meow
 import comment
 import database
-from html import *
+from html_constants import *
 
 #main page that is initially run
 class MyPage(webapp2.RequestHandler):

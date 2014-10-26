@@ -6,7 +6,7 @@ from google.appengine.ext import ndb
 
 import webapp2
 
-from html import *
+from html_constants import *
 import questions
 import topic
 

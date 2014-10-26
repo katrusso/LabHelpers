@@ -40,6 +40,18 @@ TAB_HTML = '''\
 &nbsp &nbsp &nbsp &nbsp &nbsp
 '''
 
+OPEN_TABLE_HTML = Template('''\
+<table style="width:$percent%">
+''')
+
+TABLE_COLUMN_HTML = Template('''\
+<td> $text </td>
+''')
+
+CLOSE_TABLE_HTML = '''\
+</table>
+'''
+
 CLOSE_HTML='''\
   </body>
 </html>

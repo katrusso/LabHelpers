@@ -7,7 +7,7 @@ from google.appengine.ext import ndb
 import webapp2
 
 import questions
-from html import *
+from html_constants import *
 #Skeleton of the algorithm for showing a lab
 class LabPage(webapp2.RequestHandler):
     #Gets the id of the lab from the url
@@ -49,6 +49,7 @@ class LabPage(webapp2.RequestHandler):
     #After submission page
     def post(self):
         #query for the number of questions
+        lab_id = self.getLabID()
         self.gatherQuestions()
         self.topics = []
         self.totals = []
@@ -56,13 +57,12 @@ class LabPage(webapp2.RequestHandler):
         #checks if each answer is correct or wrong
         for i in range(len(self.question_list)):
             j=0
-            for j in range(len(self.topics)):
-                if self.topics[j]==question_list[i].topic:
+            for j in range(len(self.topics)+1):
+                if j==len(self.topics) or self.topics[j]==self.question_list[i].topic:
                     break
-                    
             
-            if j==range(len(self.topics)):
-                self.topics.append(question_list[i].topic)
+            if j>=len(self.topics):
+                self.topics.append(self.question_list[i].topic)
                 self.totals.append(1)
                 self.correct.append(0)
             else:
@@ -73,7 +73,30 @@ class LabPage(webapp2.RequestHandler):
             else:
                 self.response.write("wrong")
             self.response.write("<br>")
-
+        self.response.write(ALIGN_HTML.substitute(align="center"))
+        self.response.write(TABLE_COLUMN_HTML.substitute(
+            text="<b><ins>Lab "+str(lab_id)+" results</ins></b>"))
+        self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
+        self.response.write("<tr>")
+        self.response.write(TABLE_COLUMN_HTML.substitute(
+            text=""))
+        
+        self.response.write(TABLE_COLUMN_HTML.substitute(
+            text=""))
+        self.response.write("</tr>")
+        self.response.write("<tr>")
+        for i in self.topics:
+            self.response.write(TABLE_COLUMN_HTML.substitute(text=i))
+        self.response.write("</tr>")
+        self.response.write("<tr>")
+        for i in range(len(self.topics)):
+            self.response.write(TABLE_COLUMN_HTML.substitute(
+                text = str(self.correct[i]*100.0/self.totals[i])+"%"))
+        self.response.write("</tr>")
+        self.response.write(CLOSE_TABLE_HTML)
+        self.response.write("</div>")
+        self.response.write(CLOSE_HTML)
+        
 
 #Implements the gatherQuestions function to select questions based on 
 #lab id
