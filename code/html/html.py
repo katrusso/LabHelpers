@@ -6,15 +6,23 @@ OPEN_HTML=Template('''\
   <body>
 ''')
 
+LINK_HTML=Template('''\
+<a href=$link> $text </a>
+''')
+
 FORM_HTML=Template('''\
 <form action="$action" method="$method">
 ''')
 
-SUBMIT_BUTTON_HTML=Template('''\
+ALIGN_HTML=Template('''\
+<div align=$align>
+''')
+
+SUBMIT_HTML=Template('''\
 <div><input type="submit" value="$value"></div>
 ''')
 
-RADIO_BUTTON_HTML=Template('''\
+RADIO_HTML=Template('''\
 <input type="radio" name="$name" value="$value">$text<br>
 ''')
 
@@ -25,6 +33,10 @@ CHECKBOX_HTML=Template('''\
 TEXTBOX_HTML=Template('''\
 <div><textarea name="$name" rows="$row" cols="$col" value="$text"></textarea></div>
 ''')
+
+TAB_HTML = '''\
+&nbsp &nbsp &nbsp &nbsp &nbsp
+'''
 
 CLOSE_HTML='''\
   </body>

@@ -14,15 +14,15 @@ class Admin(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="/",
                                                  method="post"))
-        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Sign Out"))
+        self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
         self.response.write('</form>')
         self.response.write(FORM_HTML.substitute(action="/admin/questions",
                                                  method="link"))
-        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add Question"))
+        self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
         self.response.write("</form>")
         self.response.write(FORM_HTML.substitute(action="/admin/topic",
                                                  method="link"))
-        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add Topic"))
+        self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
         self.response.write("</form>")
         self.response.write(CLOSE_HTML)
 
@@ -31,13 +31,13 @@ class AddQuestion(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Choose Lab Number: <br>")
-        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+        self.response.write(RADIO_HTML.substitute(name="labid",
                                                          value=1,
                                                          text="Test Lab"))
-        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+        self.response.write(RADIO_HTML.substitute(name="labid",
                                                          value=17,
                                                          text="Lab 17"))
-        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+        self.response.write(RADIO_HTML.substitute(name="labid",
                                                          value=4444,
                                                          text="Practice Problems"))
         self.response.write("Question Number: ")
@@ -60,7 +60,7 @@ class AddQuestion(webapp2.RequestHandler):
             self.response.write(CHECKBOX_HTML.substitute(name="correct",
                                                          value=n,
                                                          text="Choice is correct"))
-        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add question"))
+        self.response.write(SUBMIT_HTML.substitute(value="Add question"))
         self.response.write("</form>")
         self.response.write(CLOSE_HTML)
 
