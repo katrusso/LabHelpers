@@ -50,10 +50,26 @@ class LabPage(webapp2.RequestHandler):
     def post(self):
         #query for the number of questions
         self.gatherQuestions()
+        self.topics = []
+        self.totals = []
+        self.correct = []
         #checks if each answer is correct or wrong
         for i in range(len(self.question_list)):
+            j=0
+            for j in range(len(self.topics)):
+                if self.topics[j]==question_list[i].topic:
+                    break
+                    
+            
+            if j==range(len(self.topics)):
+                self.topics.append(question_list[i].topic)
+                self.totals.append(1)
+                self.correct.append(0)
+            else:
+                self.totals[j]=self.totals[j]+1
             if self.request.get("q"+str(i+1))=="correct":
                 self.response.write("correct")
+                self.correct[j] = self.correct[j]+1
             else:
                 self.response.write("wrong")
             self.response.write("<br>")
