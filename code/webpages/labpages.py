@@ -71,7 +71,7 @@ class LabPage(webapp2.RequestHandler):
                 self.correct[j] = self.correct[j]+1
             self.response.write("<br>")
         self.response.write(ALIGN_HTML.substitute(align="center"))
-        self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>"))
+        self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>")
         self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
         self.response.write("<tr>")
         self.response.write(TABLE_COLUMN_HTML.substitute(

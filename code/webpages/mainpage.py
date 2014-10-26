@@ -23,8 +23,7 @@ class MyPage(webapp2.RequestHandler):
                 self.redirect('/admin')
             #otherwise load mainpage
             else:
-                self.response.write(OPEN_HTML.substitute(head='''<link type="text/css" rel="stylesheet" href="/stylesheets/home.css''' />
-"))
+                self.response.write(OPEN_HTML.substitute(head='''<link type="text/css" rel="stylesheet" href="/stylesheets/home.css" />'''))
                 self.response.write(ALIGN_HTML.substitute(align="right"))
                 self.response.write(FORM_HTML.substitute(action="", 
                                                          method="post"))
