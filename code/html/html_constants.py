@@ -1,6 +1,7 @@
 from string import Template
 
 OPEN_HTML=Template('''\
+<!DOCTYPE html>
 <html>
   <head>
     $head

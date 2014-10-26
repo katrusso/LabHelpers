@@ -68,10 +68,7 @@ class LabPage(webapp2.RequestHandler):
             else:
                 self.totals[j]=self.totals[j]+1
             if self.request.get("q"+str(i+1))=="correct":
-                self.response.write("correct")
                 self.correct[j] = self.correct[j]+1
-            else:
-                self.response.write("wrong")
             self.response.write("<br>")
         self.response.write(ALIGN_HTML.substitute(align="center"))
         self.response.write(TABLE_COLUMN_HTML.substitute(
@@ -95,6 +92,25 @@ class LabPage(webapp2.RequestHandler):
         self.response.write("</tr>")
         self.response.write(CLOSE_TABLE_HTML)
         self.response.write("</div>")
+        self.num=0
+        for question in self.question_list:
+            self.num=self.num+1
+            self.response.write(str(self.num)+". ")
+            self.response.write(question.question)
+            self.response.write("<br>")
+            for i in range(len(question.choices)):
+                self.response.write(TAB_HTML)
+                if i+1 in question.answers:
+                    self.response.write('<b>')
+                self.response.write(question.choices[i])
+                if i+1 in question.answers:
+                    self.response.write("</b>")
+                self.response.write("<br>")
+            self.response.write("<br>")
+        self.response.write(FORM_HTML.substitute(action="/DynamicLab/"
+                                                 +str(lab_id)+"/",
+                                                 method="link"))
+        self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
         self.response.write(CLOSE_HTML)
         
 
