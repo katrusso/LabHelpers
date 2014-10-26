@@ -6,45 +6,63 @@ from google.appengine.ext import ndb
 
 import webapp2
 
+from html import *
 import questions
 
-QUESTION_HTML_INPUT='''\
-<html>
-  <body>
-    <form action="/" method="post">
-        <div><input type="submit" value="Sign Out"></div>
-      </form>
-    <form action="" method="post">
-      Choose Lab Number: <br>
-      <input type="radio" name="labid" value="1">Test Lab<br>
-      <input type="radio" name="labid" value="17">Lab 17<br>
-      <input type="radio" name="labid" value="4444">Practice Problem<br>
-      Question Number: <div><textarea name="number" rows="1" cols="5"></textarea></div>
-      Enter Question: <br>
-      <div><textarea name="question" rows="5" cols="60"></textarea></div>
-      Choice 1: <br>
-      <div><textarea name="choice" rows="3" cols="60"></textarea></div>
-      <input type="checkbox" name="correct" value="1">Choice 1 is correct<br>
-      Choice 2: <br>
-      <div><textarea name="choice" rows="3" cols="60"></textarea></div>
-      <input type="checkbox" name="correct" value="2">Choice 2 is correct<br>
-      Choice 3: <br>
-      <div><textarea name="choice" rows="3" cols="60"></textarea></div>
-      <input type="checkbox" name="correct" value="3">Choice 3 is correct<br>
-      Choice 4: <br>
-      <div><textarea name="choice" rows="3" cols="60"></textarea></div>
-      <input type="checkbox" name="correct" value="4">Choice 4 is correct<br>
-      Choice 5: <br>
-      <div><textarea name="choice" rows="3" cols="60"></textarea></div>
-      <input type="checkbox" name="correct" value="5">Choice 5 is correct<br>
-      <div><input type="submit" value="Add question"></div>
-    </form>
-  </body>
-</html>
-'''
+class Admin(webapp2.RequestHandler):
+    def get(self):
+        self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(FORM_HTML.substitute(action="/",
+                                                 method="post"))
+        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Sign Out"))
+        self.response.write('</form>')
+        self.response.write(FORM_HTML.substitute(action="/admin/questions",
+                                                 method="link"))
+        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add Question"))
+        self.response.write("</form>")
+        self.response.write(FORM_HTML.substitute(action="/admin/topic",
+                                                 method="link"))
+        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add Topic"))
+        self.response.write("</form>")
+        self.response.write(CLOSE_HTML)
+
 class AddQuestion(webapp2.RequestHandler):
     def get(self):
-        self.response.write(QUESTION_HTML_INPUT)
+        self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(FORM_HTML.substitute(action="",method="post"))
+        self.response.write("Choose Lab Number: <br>")
+        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+                                                         value=1,
+                                                         text="Test Lab"))
+        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+                                                         value=17,
+                                                         text="Lab 17"))
+        self.response.write(RADIO_BUTTON_HTML.substitute(name="labid",
+                                                         value=4444,
+                                                         text="Practice Problems"))
+        self.response.write("Question Number: ")
+        self.response.write(TEXTBOX_HTML.substitute(name="number",
+                                                    row=1,
+                                                    col=5,
+                                                    text=""))
+        self.response.write("Enter Question: <br>")
+        self.response.write(TEXTBOX_HTML.substitute(name="question",
+                                                    row=5,
+                                                    col=60,
+                                                    text=""))
+        for i in range(5):
+            n=i+1
+            self.response.write("Choice "+str(n)+": <br>")
+            self.response.write(TEXTBOX_HTML.substitute(name="choice",
+                                                        row=3,
+                                                        col=60,
+                                                        text=""))
+            self.response.write(CHECKBOX_HTML.substitute(name="correct",
+                                                         value=n,
+                                                         text="Choice is correct"))
+        self.response.write(SUBMIT_BUTTON_HTML.substitute(value="Add question"))
+        self.response.write("</form>")
+        self.response.write(CLOSE_HTML)
 
     def post(self):
         lab_id = int(self.request.get('labid'))
@@ -61,4 +79,8 @@ class AddQuestion(webapp2.RequestHandler):
         question.choices = choice_strs
         question.answers = correct_answers
         question.put()
-        self.response.write(QUESTION_HTML_INPUT)
+        self.redirect(self.request.uri)
+
+class AddTopic(webapp2.RequestHandler):
+    def get(self):
+        self.response.write('bleh')

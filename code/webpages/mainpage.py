@@ -58,5 +58,7 @@ application = webapp2.WSGIApplication([
     ('/DynamicLab/17/', labpages.DynamicLabPage),
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
-    ('/admin', database.AddQuestion),
+    ('/admin', database.Admin),
+    ('/admin/questions', database.AddQuestion),
+    ('/admin/topic', database.AddTopic),
 ], debug=True)
