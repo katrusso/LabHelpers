@@ -10,6 +10,7 @@ from html import *
 import questions
 import topic
 
+#admin page that leads to either the topic adder or question adder
 class Admin(webapp2.RequestHandler):
     def get(self):
         self.response.write(OPEN_HTML.substitute(head=""))
@@ -27,7 +28,9 @@ class Admin(webapp2.RequestHandler):
         self.response.write("</form>")
         self.response.write(CLOSE_HTML)
 
+#webpage to add a question
 class AddQuestion(webapp2.RequestHandler):
+    #prints all of the different inputs
     def get(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
@@ -74,6 +77,7 @@ class AddQuestion(webapp2.RequestHandler):
         self.response.write("</form>")
         self.response.write(CLOSE_HTML)
 
+    #pushes question into the datastore and reload the web page
     def post(self):
         lab_id = int(self.request.get('labid'))
         number = int(self.request.get('number'))
@@ -93,6 +97,7 @@ class AddQuestion(webapp2.RequestHandler):
         question.put()
         self.redirect(self.request.uri)
 
+#interface for the topic adding (works the same way as the question one
 class AddTopic(webapp2.RequestHandler):
     def get(self):
         self.response.write(OPEN_HTML.substitute(head=""))

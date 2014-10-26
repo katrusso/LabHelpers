@@ -13,12 +13,15 @@ import comment
 import database
 from html import *
 
+#main page that is initially run
 class MyPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            if users.is_current_user_admin():
+            #if user is admin redirect to admin page
+            if users.is_current_user_admin(): 
                 self.redirect('/admin')
+            #otherwise load mainpage
             else:
                 self.response.write(OPEN_HTML.substitute(head=""))
                 self.response.write(ALIGN_HTML.substitute(align="right"))
@@ -42,7 +45,7 @@ class MyPage(webapp2.RequestHandler):
                 self.response.write("</form>")
                 self.response.write("<div><br>")
                 
-
+        # If user is not logged in redirect to log in
         else:
             self.redirect(users.create_login_url(self.request.uri))
         

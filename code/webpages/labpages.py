@@ -8,7 +8,7 @@ import webapp2
 
 import questions
 from html import *
-
+#Skeleton of the algorithm for showing a lab
 class LabPage(webapp2.RequestHandler):
     #Gets the id of the lab from the url
     def getLabID(self):
@@ -16,6 +16,7 @@ class LabPage(webapp2.RequestHandler):
         lab_id = my_url[len(my_url)-3:len(my_url)-1]
         return int(lab_id)
 
+    #print all of the information for the lab
     def get(self):
         self.num=0
         #starts off the webpage with a form
@@ -58,7 +59,8 @@ class LabPage(webapp2.RequestHandler):
             self.response.write("<br>")
 
 
-
+#Implements the gatherQuestions function to select questions based on 
+#lab id
 class StaticLabPage(LabPage):
     def gatherQuestions(self):
         #gets the questions for the specific lab ID
@@ -67,6 +69,8 @@ class StaticLabPage(LabPage):
             ancestor=questions.lab_key(lab_id)).order(questions.Question.number)
         self.question_list = questions_query.fetch()
 
+#Implements the gatherQuestions function to select questions based on 
+#poorly completed topics
 class DynamicLabPage(LabPage):
     def gatherQuestions(self):
         self.question_list=[]
