@@ -10,12 +10,7 @@ import questions
 from html_constants import *
 #Skeleton of the algorithm for showing a lab
 class LabPage(webapp2.RequestHandler):
-    #Gets the id of the lab from the url
-    def getLabID(self):
-        my_url = self.request.uri
-        lab_id = my_url[len(my_url)-3:len(my_url)-1]
-        return int(lab_id)
-
+            
     #print all of the information for the lab
     def get(self):
         self.num=0
@@ -71,23 +66,20 @@ class LabPage(webapp2.RequestHandler):
                 self.correct[j] = self.correct[j]+1
             self.response.write("<br>")
         self.response.write(ALIGN_HTML.substitute(align="center"))
-        self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>")
+        if lab_id==4444:
+            self.response.write("<b><ins> Practice lab results </ins></b><br>")
+        else:
+            self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>")
         self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
-        self.response.write("<tr>")
-        self.response.write(TABLE_COLUMN_HTML.substitute(
-            text=""))
-        
-        self.response.write(TABLE_COLUMN_HTML.substitute(
-            text=""))
-        self.response.write("</tr>")
         self.response.write("<tr>")
         for i in self.topics:
             self.response.write(TABLE_COLUMN_HTML.substitute(text=i))
         self.response.write("</tr>")
         self.response.write("<tr>")
         for i in range(len(self.topics)):
+            temp_val = self.correct[i]*100.0/self.totals[i]
             self.response.write(TABLE_COLUMN_HTML.substitute(
-                text = str(self.correct[i]*100.0/self.totals[i])+"%"))
+                text = str(temp_val)+"%"))
         self.response.write("</tr>")
         self.response.write(CLOSE_TABLE_HTML)
         self.response.write("</div>")
@@ -106,16 +98,31 @@ class LabPage(webapp2.RequestHandler):
                     self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
-        self.response.write(FORM_HTML.substitute(action="/DynamicLab/"
-                                                 +str(lab_id)+"/",
-                                                 method="link"))
-        self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
+        if lab_id!=4444:
+            self.response.write(FORM_HTML.substitute(action="/DynamicLab/"
+                                                     +str(lab_id)+"/",
+                                                     method="link"))
+            for i in range(len(self.topics)):
+                isCheck=""
+                if self.correct[i]*100.0/self.totals[i]<50:
+                    isCheck="checked"
+                self.response.write(CHECKBOX_HTML.substitute(name="topics",
+                                                             checked=isCheck,
+                                                             value=self.topics[i],
+                                                             text=self.topics[i]))
+            self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
+            self.response.write("</form>")
         self.response.write(CLOSE_HTML)
         
 
 #Implements the gatherQuestions function to select questions based on 
 #lab id
 class StaticLabPage(LabPage):
+    #Gets the id of the lab from the url
+    def getLabID(self):
+        my_url = self.request.uri
+        lab_id = my_url[len(my_url)-3:len(my_url)-1]
+        return int(lab_id)
     def gatherQuestions(self):
         #gets the questions for the specific lab ID
         lab_id = self.getLabID()
@@ -126,7 +133,16 @@ class StaticLabPage(LabPage):
 #Implements the gatherQuestions function to select questions based on 
 #poorly completed topics
 class DynamicLabPage(LabPage):
+    #Gets the id of the lab from the url
+    def getLabID(self):
+        return 4444
     def gatherQuestions(self):
         self.question_list=[]
         lab_id=4444
-        
+        topics = self.request.get_all("topics")
+        questions_query = questions.Question.query(
+            ancestor=questions.lab_key(4444)).order(questions.Question.topic)
+        temp_list = questions_query.fetch()
+        for i in temp_list:
+            if i.topic in topics:
+                self.question_list.append(i)

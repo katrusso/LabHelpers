@@ -30,7 +30,7 @@ RADIO_HTML=Template('''\
 ''')
 
 CHECKBOX_HTML=Template('''\
-<input type="checkbox" name="$name" value="$value">$text<br>
+<input type="checkbox" name="$name" $checked value=$value>$text<br>
 ''')
 
 TEXTBOX_HTML=Template('''\
@@ -42,11 +42,11 @@ TAB_HTML = '''\
 '''
 
 OPEN_TABLE_HTML = Template('''\
-<table name=$name style="width:$percent%">
+<table style="width:$percent%">
 ''')
 
 TABLE_COLUMN_HTML = Template('''\
-<td> $text </td>
+<td> <div align="center">$text </div></td>
 ''')
 
 CLOSE_TABLE_HTML = '''\

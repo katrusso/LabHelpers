@@ -72,6 +72,7 @@ class AddQuestion(webapp2.RequestHandler):
                                                         text=""))
             self.response.write(CHECKBOX_HTML.substitute(name="correct",
                                                          value=n,
+                                                         checked="",
                                                          text="Choice is correct"))
         self.response.write(SUBMIT_HTML.substitute(value="Add question"))
         self.response.write("</form>")
@@ -83,8 +84,8 @@ class AddQuestion(webapp2.RequestHandler):
         number = int(self.request.get('number'))
         topic_name = self.request.get('topic')
         question_str = self.request.get('question')
-        choice_strs = self.request.get('choice', allow_multiple=True)
-        correct_answer_strs = self.request.get('correct', allow_multiple=True)
+        choice_strs = self.request.get_all('choice')
+        correct_answer_strs = self.request.get_all('correct')
         correct_answers = [];
         for i in range(len(correct_answer_strs)):
             correct_answers.append(int(correct_answer_strs[i]))
