@@ -32,13 +32,8 @@ class MyPage(webapp2.RequestHandler):
 
 
                 self.response.write('''<div id="main">''')
-<<<<<<< HEAD
                 self.response.write(ALIGN_HTML.substitute(align="right"))
-                #self.response.write(FORM_HTML.substitute(action="", 
-                #                                         method="post"))
-                #self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-                #self.response.write("</form>")
-=======
+
                 self.response.write("<br>")
                 self.response.write(TAB_HTML)
                 self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
@@ -50,11 +45,11 @@ class MyPage(webapp2.RequestHandler):
                 self.response.write('''<div id="right">''')
                 self.response.write("<br>")
                 self.response.write(ALIGN_HTML.substitute(align="center"))
-                self.response.write(FORM_HTML.substitute(action="", 
-                                                         method="post"))
-                self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-                self.response.write("</form>")
->>>>>>> 75d54f1dd44b6cac52c392c66eca67275b0e608a
+                #self.response.write(FORM_HTML.substitute(action="", 
+                #                                         method="post"))
+                #self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
+                #self.response.write("</form>")
+
                 self.response.write(FORM_HTML.substitute(action="/comment",
                                                          method="link"))
                 self.response.write(SUBMIT_HTML.substitute(value="Comment"))
