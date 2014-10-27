@@ -26,10 +26,10 @@ class MyPage(webapp2.RequestHandler):
                 self.response.write(OPEN_HTML.substitute(head='''<link type="text/css" rel="stylesheet" href="/stylesheets/home.css" />'''))
                 self.response.write('''<div id="main">''')
                 self.response.write(ALIGN_HTML.substitute(align="right"))
-                self.response.write(FORM_HTML.substitute(action="", 
-                                                         method="post"))
-                self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-                self.response.write("</form>")
+                #self.response.write(FORM_HTML.substitute(action="", 
+                #                                         method="post"))
+                #self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
+                #self.response.write("</form>")
                 self.response.write(FORM_HTML.substitute(action="/comment",
                                                          method="link"))
                 self.response.write(SUBMIT_HTML.substitute(value="Comment"))

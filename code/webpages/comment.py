@@ -6,22 +6,25 @@ from google.appengine.ext import ndb
 
 import webapp2
 
+from html_constants import *
+
 MAIN_PAGE_FOOTER_TEMPLATE = """\
     <form action="/sign?%s" method="post">
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
       <div><input type="submit" value="Leave Comment"></div>
     </form>
     <hr>
-    <form>Comments page:
-      <input value="%s" name="Comments Pages">
-      <input type="submit" value="switch">
-    </form>
-    <a href="%s">%s</a>
-  </body>
-</html>
 """
+#    <form>Comments page:
+#      <input value="%s" name="Comments Pages">
+#      <input type="submit" value="switch">
+#    </form>
+#    <a href="%s">%s</a>
+#  </body>
+#</html>
+#"""
 
-MAXCOMMENT = 50
+MAXCOMMENT = 9
 DEFAULT_GUESTBOOK_NAME = 'General Comments'
 
 # We set a parent key on the 'Greetings' to ensure that they are all in the same
@@ -56,19 +59,21 @@ class CommentPage(webapp2.RequestHandler):
             self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(greeting.content))
 
-        if users.get_current_user():
-            url = users.create_logout_url(self.request.uri)
-            url_linktext = 'Logout'
-        else:
-            url = users.create_login_url(self.request.uri)
-            url_linktext = 'Login'
+        #if users.get_current_user():
+        #    url = users.create_logout_url(self.request.uri)
+        #    url_linktext = 'Logout'
+        #else:
+        #    url = users.create_login_url(self.request.uri)
+        #    url_linktext = 'Login'
 
         # Write the submission form and the footer of the page
         sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
         self.response.write(MAIN_PAGE_FOOTER_TEMPLATE %
-                            (sign_query_params, cgi.escape(guestbook_name),
-                             url, url_linktext))
-        
+                            (sign_query_params))#, cgi.escape(guestbook_name)))
+        self.response.write(FORM_HTML.substitute(action="/", method="link"))
+        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
+        self.response.write("</form>")
+
 class Comment(webapp2.RequestHandler):
     def post(self):
         guestbook_name = self.request.get('guestbook_name',DEFAULT_GUESTBOOK_NAME)

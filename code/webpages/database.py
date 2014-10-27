@@ -13,6 +13,8 @@ import topic
 #admin page that leads to either the topic adder or question adder
 class Admin(webapp2.RequestHandler):
     def get(self):
+        if not users.is_current_user_admin(): 
+                self.redirect('/')
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="/",
                                                  method="post"))

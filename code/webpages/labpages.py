@@ -64,7 +64,6 @@ class LabPage(webapp2.RequestHandler):
                 self.totals[j]=self.totals[j]+1
             if self.request.get("q"+str(i+1))=="correct":
                 self.correct[j] = self.correct[j]+1
-            self.response.write("<br>")
         self.response.write(ALIGN_HTML.substitute(align="center"))
         if lab_id==4444:
             self.response.write("<b><ins> Practice lab results </ins></b><br>")
@@ -111,6 +110,10 @@ class LabPage(webapp2.RequestHandler):
                                                              value=self.topics[i],
                                                              text=self.topics[i]))
             self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
+            self.response.write("</form>")
+        else:
+            self.response.write(FORM_HTML.substitute(action="/",method="link"))
+            self.response.write(SUBMIT_HTML.substitute(value="Return to main page"))
             self.response.write("</form>")
         self.response.write(CLOSE_HTML)
         
