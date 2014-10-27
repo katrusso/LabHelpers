@@ -24,28 +24,50 @@ class MyPage(webapp2.RequestHandler):
             #otherwise load mainpage
             else:
                 self.response.write(OPEN_HTML.substitute(head='''<link type="text/css" rel="stylesheet" href="/stylesheets/home.css" />'''))
+                self.response.write('''<div id="header">''')
+
+
+                self.response.write('''<div id="left">''')
+                self.response.write("</div>")#left
+
+
                 self.response.write('''<div id="main">''')
+<<<<<<< HEAD
                 self.response.write(ALIGN_HTML.substitute(align="right"))
                 #self.response.write(FORM_HTML.substitute(action="", 
                 #                                         method="post"))
                 #self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
                 #self.response.write("</form>")
-                self.response.write(FORM_HTML.substitute(action="/comment",
-                                                         method="link"))
-                self.response.write(SUBMIT_HTML.substitute(value="Comment"))
-                self.response.write("</form>")
-                self.response.write("</div><br>")
+=======
+                self.response.write("<br>")
                 self.response.write(TAB_HTML)
                 self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
                                                          text="Lab 17:Exam 2 Review"))
                 self.response.write("<br>")
-                self.response.write(ALIGN_HTML.substitute(align="right"))
+                self.response.write("</div>")#main
+
+
+                self.response.write('''<div id="right">''')
+                self.response.write("<br>")
+                self.response.write(ALIGN_HTML.substitute(align="center"))
+                self.response.write(FORM_HTML.substitute(action="", 
+                                                         method="post"))
+                self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
+                self.response.write("</form>")
+>>>>>>> 75d54f1dd44b6cac52c392c66eca67275b0e608a
+                self.response.write(FORM_HTML.substitute(action="/comment",
+                                                         method="link"))
+                self.response.write(SUBMIT_HTML.substitute(value="Comment"))
+                self.response.write("</form>")
                 self.response.write(FORM_HTML.substitute(action="/meow",
                                                          method="link"))
                 self.response.write(SUBMIT_HTML.substitute(value="Meow"))
                 self.response.write("</form>")
                 self.response.write("</div><br>")
-                self.response.write("</div>")
+                self.response.write("</div><br>")
+                self.response.write("</div>")#right
+
+                self.response.write("</div>")#header
         # If user is not logged in redirect to log in
         else:
             self.redirect(users.create_login_url(self.request.uri))
