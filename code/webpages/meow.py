@@ -12,5 +12,6 @@ class MeowPage(webapp2.RequestHandler):
         self.response.write(ALIGN_HTML.substitute(align="center"))
         self.response.write(FORM_HTML.substitute(action="/", method="link"))
         self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
-        self.response.write("</form></div>")
+        self.response.write(CLOSE_FORM_HTML)
+        self.response.write("</div>")
 

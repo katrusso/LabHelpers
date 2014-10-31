@@ -8,13 +8,6 @@ import webapp2
 
 from html_constants import *
 
-MAIN_PAGE_FOOTER_TEMPLATE = """\
-    <form action="/sign?%s" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Leave Comment"></div>
-    </form>
-    <hr>
-"""
 
 MAXCOMMENT = 9
 DEFAULT_GUESTBOOK_NAME = 'General Comments'

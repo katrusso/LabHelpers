@@ -45,7 +45,7 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(SUBMIT_HTML.substitute(value="Submit"))
 
         #end of page
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
     
     #After submission page
@@ -137,12 +137,12 @@ class LabPage(webapp2.RequestHandler):
                                                              value=self.topics[i],
                                                              text=self.topics[i]))
             self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
-            self.response.write("</form>")
+            self.response.write(CLOSE_FORM_HTML)
         #otherwise write button to the main page
         else:
             self.response.write(FORM_HTML.substitute(action="/",method="link"))
             self.response.write(SUBMIT_HTML.substitute(value="Return to main page"))
-            self.response.write("</form>")
+            self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
         
 

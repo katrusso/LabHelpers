@@ -29,12 +29,12 @@ class Admin(AdminPage):
                                                  method="link"))
         #question adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(FORM_HTML.substitute(action="/admin/topic",
                                                  method="link"))
         #topic adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
 
 #webpage to add a question
@@ -84,7 +84,7 @@ class AddQuestion(AdminPage):
                                                          checked="",
                                                          text="Choice is correct"))
         self.response.write(SUBMIT_HTML.substitute(value="Add question"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
 
     #pushes question into the datastore and reload the web page
@@ -119,7 +119,7 @@ class AddTopic(AdminPage):
                                                     col=30,
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
     def post(self):
         topic_name=self.request.get('topic')
