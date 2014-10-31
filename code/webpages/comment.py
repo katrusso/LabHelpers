@@ -60,8 +60,8 @@ class CommentPage(webapp2.RequestHandler):
             action="/sign?%s" % (sign_query_params),
             method="post"))
         self.response.write(TEXTBOX_HTML.substitute(name="content",
-                                                    rows=3,
-                                                    cols=60,
+                                                    row=3,
+                                                    col=60,
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Leave Comment"))
         self.response.write(CLOSE_FORM_HTML)
