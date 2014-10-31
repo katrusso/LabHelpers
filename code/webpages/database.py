@@ -9,12 +9,16 @@ import webapp2
 from html_constants import *
 import questions
 import topic
-
-#admin page that leads to either the topic adder or question adder
-class Admin(webapp2.RequestHandler):
+class AdminPage(webapp2.RequestHandler):
     def get(self):
         if not users.is_current_user_admin(): 
-                self.redirect('/')
+            self.abort(404)
+        self.__write_html__()
+
+#admin page that leads to either the topic adder or question adder
+class Admin(AdminPage):
+
+    def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="/",
                                                  method="link"))
@@ -34,9 +38,9 @@ class Admin(webapp2.RequestHandler):
         self.response.write(CLOSE_HTML)
 
 #webpage to add a question
-class AddQuestion(webapp2.RequestHandler):
+class AddQuestion(AdminPage):
     #prints all of the different inputs
-    def get(self):
+    def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Choose Lab Number: <br>")
@@ -104,8 +108,9 @@ class AddQuestion(webapp2.RequestHandler):
         self.redirect(self.request.uri)
 
 #interface for the topic adding (works the same way as the question one
-class AddTopic(webapp2.RequestHandler):
-    def get(self):
+class AddTopic(AdminPage):
+    def __write_html__(self):
+
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Enter topic name:")

@@ -65,8 +65,6 @@ class CommentPage(webapp2.RequestHandler):
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Leave Comment"))
         self.response.write(CLOSE_FORM_HTML)
-        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE %
-                            (sign_query_params))
         self.response.write(FORM_HTML.substitute(action="/", method="link"))
         self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
         self.response.write(CLOSE_FORM_HTML)

@@ -12,6 +12,7 @@ import meow
 import comment
 import database
 import userclass
+import userpage
 
 from html_constants import *
 
@@ -28,8 +29,8 @@ class MainPage(webapp2.RequestHandler):
             ancestor=userclass.user_key(nickname)).order(
                 userclass.User.rin_number)
             user_object = user_query.fetch()
-#            if (len(user_object)==0):
- #               self.response.redirect("/signup")
+            if (len(user_object)==0):
+                self.redirect("/signup")
             #include the css sheets and open the html
             self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
@@ -61,7 +62,7 @@ class MainPage(webapp2.RequestHandler):
             if users.is_current_user_admin(): 
                 self.response.write(FORM_HTML.substitute(action="/admin",
                                                          method="link"))
-                self.response.write(SUBMIT_HTML.substitute(value="admin"))
+                self.response.write(SUBMIT_HTML.substitute(value="Admin Page"))
                 self.response.write(CLOSE_FORM_HTML)
             self.response.write(FORM_HTML.substitute(action="/comment",
                                                      method="link"))
@@ -91,7 +92,7 @@ class MainPage(webapp2.RequestHandler):
 #List of all pages for the application
 application = webapp2.WSGIApplication([
     ('/', MainPage),
-    #('/signup', userpage.SignUp),
+    ('/signup', userpage.SignUp),
     ('/StaticLab/17/', labpages.StaticLabPage),
     ('/DynamicLab/17/', labpages.DynamicLabPage),
     ('/meow', meow.MeowPage),
