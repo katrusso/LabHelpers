@@ -49,6 +49,7 @@ class LabPage(webapp2.RequestHandler):
         self.topics = []
         self.totals = []
         self.correct = []
+        correct_answers=[]
         #checks if each answer is correct or wrong
         for i in range(len(self.question_list)):
             j=0
@@ -64,6 +65,10 @@ class LabPage(webapp2.RequestHandler):
                 self.totals[j]=self.totals[j]+1
             if self.request.get("q"+str(i+1))=="correct":
                 self.correct[j] = self.correct[j]+1
+                correct_answers.append(True)
+            else:
+                correct_answers.append(False)
+        #Print the results of the lab
         self.response.write(ALIGN_HTML.substitute(align="center"))
         if lab_id==4444:
             self.response.write("<b><ins> Practice lab results </ins></b><br>")
@@ -82,8 +87,11 @@ class LabPage(webapp2.RequestHandler):
         self.response.write("</tr>")
         self.response.write(CLOSE_TABLE_HTML)
         self.response.write("</div>")
+
+        #rewrite each question bolding the correct answer
         self.num=0
-        for question in self.question_list:
+        for j in range(len(self.question_list)):
+            question = self.question_list[j]
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
             self.response.write(question.question)
@@ -92,11 +100,17 @@ class LabPage(webapp2.RequestHandler):
                 self.response.write(TAB_HTML)
                 if i+1 in question.answers:
                     self.response.write('<b>')
+                    #if correct_answers[j]==True:
+                    #    self.response.write('<mark>')
                 self.response.write(question.choices[i])
                 if i+1 in question.answers:
+                    #if correct_answers[j]==True:
+                    #    self.response.write('</mark>')
                     self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
+
+        #if this is a static lab write the topics and practice lab button
         if lab_id!=4444:
             self.response.write(FORM_HTML.substitute(action="/DynamicLab/"
                                                      +str(lab_id)+"/",
@@ -111,6 +125,7 @@ class LabPage(webapp2.RequestHandler):
                                                              text=self.topics[i]))
             self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
             self.response.write("</form>")
+        #otherwise write button to the main page
         else:
             self.response.write(FORM_HTML.substitute(action="/",method="link"))
             self.response.write(SUBMIT_HTML.substitute(value="Return to main page"))

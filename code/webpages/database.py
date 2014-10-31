@@ -17,15 +17,18 @@ class Admin(webapp2.RequestHandler):
                 self.redirect('/')
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="/",
-                                                 method="post"))
-        self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-        self.response.write('</form>')
+                                                 method="link"))
+        #sign out button
+        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(FORM_HTML.substitute(action="/admin/questions",
                                                  method="link"))
+        #question adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
         self.response.write("</form>")
         self.response.write(FORM_HTML.substitute(action="/admin/topic",
                                                  method="link"))
+        #topic adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
         self.response.write("</form>")
         self.response.write(CLOSE_HTML)
