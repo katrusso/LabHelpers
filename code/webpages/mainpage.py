@@ -21,8 +21,6 @@ class MainPage(webapp2.RequestHandler):
         
         username = users.get_current_user()
         if username:
-            
-            
             nickname = username.nickname()
             #check the database for the user
             #if its a new user make the user and push to the database
@@ -30,7 +28,8 @@ class MainPage(webapp2.RequestHandler):
             ancestor=userclass.user_key(nickname)).order(
                 userclass.User.rin_number)
             user_object = user_query.fetch()
-                
+#            if (len(user_object)==0):
+ #               self.response.redirect("/signup")
             #include the css sheets and open the html
             self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
@@ -64,10 +63,6 @@ class MainPage(webapp2.RequestHandler):
                                                          method="link"))
                 self.response.write(SUBMIT_HTML.substitute(value="admin"))
                 self.response.write(CLOSE_FORM_HTML)
-            self.response.write(FORM_HTML.substitute(action="",
-                                                     method="post"))
-            self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-            self.response.write(CLOSE_FORM_HTML)
             self.response.write(FORM_HTML.substitute(action="/comment",
                                                      method="link"))
             self.response.write(SUBMIT_HTML.substitute(value="Comment"))
@@ -96,6 +91,7 @@ class MainPage(webapp2.RequestHandler):
 #List of all pages for the application
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+    #('/signup', userpage.SignUp),
     ('/StaticLab/17/', labpages.StaticLabPage),
     ('/DynamicLab/17/', labpages.DynamicLabPage),
     ('/meow', meow.MeowPage),
