@@ -22,15 +22,7 @@ class MainPage(webapp2.RequestHandler):
         
         username = users.get_current_user()
         if username:
-            nickname = username.nickname()
-            #check the database for the user
-            #if its a new user make the user and push to the database
-            user_query = userclass.User.query(
-            ancestor=userclass.user_key(nickname)).order(
-                userclass.User.rin_number)
-            user_object = user_query.fetch()
-            if (len(user_object)==0):
-                self.redirect("/signup")
+            user_object = userclass.__sign_in__(self,username.nickname())
             #include the css sheets and open the html
             self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
@@ -77,10 +69,11 @@ class MainPage(webapp2.RequestHandler):
             self.response.write("</div>")#right
             
             self.response.write('''<div id="footer">''')
+            self.response.write("<br>")
             self.response.write(TAB_HTML)
-            self.response.write("<br>Content from Physics II Laboratory Manual by Scott Dwyer")
+            self.response.write("Content from Physics II Laboratory Manual by Scott Dwyer<br>")
             self.response.write(TAB_HTML)
-            self.response.write("<br>Team members: Gerrett Diamond, Seungyeon Lee, Kat Russo, Nick Stamm")
+            self.response.write("Team members: Gerrett Diamond, Seungyeon Lee, Kat Russo, Nick Stamm")
             self.response.write("</div>")#footer
             
                 

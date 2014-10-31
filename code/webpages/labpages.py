@@ -7,7 +7,10 @@ from google.appengine.ext import ndb
 import webapp2
 
 import questions
+import userclass
+
 from html_constants import *
+
 #Skeleton of the algorithm for showing a lab
 class LabPage(webapp2.RequestHandler):
             
@@ -15,6 +18,10 @@ class LabPage(webapp2.RequestHandler):
     def get(self):
         self.num=0
         #starts off the webpage with a form
+        
+        user_object =self.__check_login__()
+        if user_object!=0:
+            self.post()
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.gatherQuestions()
@@ -30,7 +37,7 @@ class LabPage(webapp2.RequestHandler):
                 if i+1 in question.answers:
                     ans="correct"
                 self.response.write(RADIO_HTML.substitute(name="q"+str(self.num),
-                                                          value=ans,
+                                                          value=str(i)+ans,
                                                           text=question.choices[i]))
             self.response.write("<br>")
 
@@ -48,6 +55,7 @@ class LabPage(webapp2.RequestHandler):
         self.gatherQuestions()
         self.topics = []
         self.totals = []
+        self.select = []
         self.correct = []
         correct_answers=[]
         #checks if each answer is correct or wrong
@@ -63,7 +71,12 @@ class LabPage(webapp2.RequestHandler):
                 self.correct.append(0)
             else:
                 self.totals[j]=self.totals[j]+1
-            if self.request.get("q"+str(i+1))=="correct":
+            answer = self.request.get("q"+str(i+1))
+            if answer!="":
+                self.select.append(int(answer[0]))
+            else:
+                self.select.append(-1)
+            if answer[1:]=="correct":
                 self.correct[j] = self.correct[j]+1
                 correct_answers.append(True)
             else:
@@ -100,12 +113,12 @@ class LabPage(webapp2.RequestHandler):
                 self.response.write(TAB_HTML)
                 if i+1 in question.answers:
                     self.response.write('<b>')
-                    #if correct_answers[j]==True:
-                    #    self.response.write('<mark>')
+                if self.select[j]==i:
+                    self.response.write('<mark>')
                 self.response.write(question.choices[i])
+                if self.select[j]==i:
+                    self.response.write('</mark>')
                 if i+1 in question.answers:
-                    #if correct_answers[j]==True:
-                    #    self.response.write('</mark>')
                     self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
@@ -141,6 +154,12 @@ class StaticLabPage(LabPage):
         my_url = self.request.uri
         lab_id = my_url[len(my_url)-3:len(my_url)-1]
         return int(lab_id)
+    def __check_login__(self):
+        username = users.get_current_user()
+        user_object = userclass.__sign_in__(self,username.nickname())
+        responses=user_object[0].query_responses(self.getLabID(),username.nickname())
+        return len(responses)
+        
     def gatherQuestions(self):
         #gets the questions for the specific lab ID
         lab_id = self.getLabID()
@@ -154,6 +173,8 @@ class DynamicLabPage(LabPage):
     #Gets the id of the lab from the url
     def getLabID(self):
         return 4444
+    def __check_login__(self):
+        return 0;
     def gatherQuestions(self):
         self.question_list=[]
         lab_id=4444
