@@ -9,31 +9,38 @@ import webapp2
 from html_constants import *
 import questions
 import topic
-
-#admin page that leads to either the topic adder or question adder
-class Admin(webapp2.RequestHandler):
+class AdminPage(webapp2.RequestHandler):
     def get(self):
         if not users.is_current_user_admin(): 
-                self.redirect('/')
+            self.abort(404)
+        self.__write_html__()
+
+#admin page that leads to either the topic adder or question adder
+class Admin(AdminPage):
+
+    def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="/",
-                                                 method="post"))
-        self.response.write(SUBMIT_HTML.substitute(value="Sign Out"))
-        self.response.write('</form>')
+                                                 method="link"))
+        #sign out button
+        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(FORM_HTML.substitute(action="/admin/questions",
                                                  method="link"))
+        #question adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(FORM_HTML.substitute(action="/admin/topic",
                                                  method="link"))
+        #topic adding link
         self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
 
 #webpage to add a question
-class AddQuestion(webapp2.RequestHandler):
+class AddQuestion(AdminPage):
     #prints all of the different inputs
-    def get(self):
+    def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Choose Lab Number: <br>")
@@ -77,7 +84,7 @@ class AddQuestion(webapp2.RequestHandler):
                                                          checked="",
                                                          text="Choice is correct"))
         self.response.write(SUBMIT_HTML.substitute(value="Add question"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
 
     #pushes question into the datastore and reload the web page
@@ -101,8 +108,9 @@ class AddQuestion(webapp2.RequestHandler):
         self.redirect(self.request.uri)
 
 #interface for the topic adding (works the same way as the question one
-class AddTopic(webapp2.RequestHandler):
-    def get(self):
+class AddTopic(AdminPage):
+    def __write_html__(self):
+
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Enter topic name:")
@@ -111,7 +119,7 @@ class AddTopic(webapp2.RequestHandler):
                                                     col=30,
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
     def post(self):
         topic_name=self.request.get('topic')

@@ -53,7 +53,24 @@ CLOSE_TABLE_HTML = '''\
 </table>
 '''
 
+CLOSE_FORM_HTML = '''\
+</form>
+'''
+
 CLOSE_HTML='''\
   </body>
 </html>
 '''
+
+MEOW_PAGE_HTML= '''\
+<html>
+  <body>
+    <center>
+    <iframe width="840" height="600"
+      src="http://www.youtube.com/embed/DXUAyRRkI6k?rel=0&autoplay=1 ">
+    </iframe> 
+    </center>
+  </body>
+</html>
+'''
+

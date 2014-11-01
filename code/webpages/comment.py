@@ -8,21 +8,6 @@ import webapp2
 
 from html_constants import *
 
-MAIN_PAGE_FOOTER_TEMPLATE = """\
-    <form action="/sign?%s" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Leave Comment"></div>
-    </form>
-    <hr>
-"""
-#    <form>Comments page:
-#      <input value="%s" name="Comments Pages">
-#      <input type="submit" value="switch">
-#    </form>
-#    <a href="%s">%s</a>
-#  </body>
-#</html>
-#"""
 
 MAXCOMMENT = 9
 DEFAULT_GUESTBOOK_NAME = 'General Comments'
@@ -35,21 +20,24 @@ def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
     """Constructs a Datastore key for a Guestbook entity with guestbook_name."""
     return ndb.Key('Guestbook', guestbook_name)
 
+#database class for a message
 class Greeting(ndb.Model):
     """Models an individual Guestbook entry."""
     author = ndb.UserProperty()
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 
+#webpage for the comments 
 class CommentPage(webapp2.RequestHandler):
   def get(self):
-        self.response.write('<html><body>')
+        self.response.write(OPEN_HTML.substitute(head=""))
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
         greetings_query = Greeting.query(
             ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
         greetings = greetings_query.fetch(MAXCOMMENT)
 
+        #write previous comments
         for greeting in greetings:
             if greeting.author:
                 self.response.write(
@@ -59,21 +47,22 @@ class CommentPage(webapp2.RequestHandler):
             self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(greeting.content))
 
-        #if users.get_current_user():
-        #    url = users.create_logout_url(self.request.uri)
-        #    url_linktext = 'Logout'
-        #else:
-        #    url = users.create_login_url(self.request.uri)
-        #    url_linktext = 'Login'
-
         # Write the submission form and the footer of the page
         sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
-        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE %
-                            (sign_query_params))#, cgi.escape(guestbook_name)))
+        self.response.write(FORM_HTML.substitute(
+            action="/sign?%s" % (sign_query_params),
+            method="post"))
+        self.response.write(TEXTBOX_HTML.substitute(name="content",
+                                                    row=3,
+                                                    col=60,
+                                                    text=""))
+        self.response.write(SUBMIT_HTML.substitute(value="Leave Comment"))
+        self.response.write(CLOSE_FORM_HTML)
         self.response.write(FORM_HTML.substitute(action="/", method="link"))
         self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
-        self.response.write("</form>")
+        self.response.write(CLOSE_FORM_HTML)
 
+#submit the comment to the database
 class Comment(webapp2.RequestHandler):
     def post(self):
         guestbook_name = self.request.get('guestbook_name',DEFAULT_GUESTBOOK_NAME)
