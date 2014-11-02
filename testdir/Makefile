@@ -19,9 +19,7 @@ copy:
 	cp -R $(SYTLEDIRS) .
 	cp $(IMAGES) .
 appengine:
-	$(GOOGLEPATH) ./
-newappengine:
-	$(GOOGLEPATH) --clear_datastore=yes ./
+	dev_appserver.py ./
 backup:
 	cp $(SOURCES) $(BACKUPDIR)
 	cp $(APPFILE) $(BACKUPDIR)
