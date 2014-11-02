@@ -30,46 +30,34 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
                 />'''))
-    
-                
-            #self.response.write('''<div id="main">''')
-            #self.response.write("<div>")#main
             
             self.response.write('''<div id="header">''')
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<h1>LabHelpers</h1>")
             self.response.write("</div>")#header
 
-            self.response.write('''<div id="left">''')
-            self.response.write("</div>")#left
-
-            self.response.write('''<div id="middle">''')
-            self.response.write("<br>")
-            self.response.write(TAB_HTML)
-            self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
-                                                     text="Lab 17:Exam 2 Review"))
-            self.response.write("<br>")
-            self.response.write("</div>")#middle
-            
-            self.response.write('''<div id="right">''')
+            self.response.write('''<div id="nav">''')
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             if users.is_current_user_admin(): 
-                self.response.write(FORM_HTML.substitute(action="/admin",
-                                                         method="link"))
-                self.response.write(SUBMIT_HTML.substitute(value="Admin Page"))
-                self.response.write(CLOSE_FORM_HTML)
-            self.response.write(FORM_HTML.substitute(action="/comment",
-                                                     method="link"))
-            self.response.write(SUBMIT_HTML.substitute(value="Comment"))
-            self.response.write(CLOSE_FORM_HTML)
-            self.response.write(FORM_HTML.substitute(action="/meow",
-                                                     method="link"))
-            self.response.write(SUBMIT_HTML.substitute(value="Meow"))
-            self.response.write(CLOSE_FORM_HTML)
-            self.response.write("</div><br>")
-            self.response.write("</div><br>")
-            self.response.write("</div>")#right
+                self.response.write(LINK_HTML.substitute(link="/admin", text="Admin Page"))
+            self.response.write("<br>")
+            self.response.write(LINK_HTML.substitute(link="/comment", text="Comment"))
+            self.response.write("<br>")
+            self.response.write(LINK_HTML.substitute(link="/meow", text="Meow"))
+
+            #self.response.write("</div><br>")
+            #self.response.write("</div><br>")
+            self.response.write ("</div>")#nav
+            self.response.write("<br><br>")
+
+            self.response.write('''<div id="content">''')
+            self.response.write("<br>")
+            self.response.write(ALIGN_HTML.substitute(align="center"))
+            self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
+                                                     text="Lab 17:Exam 2 Review"))
+            self.response.write("<br>")
+            self.response.write("</div>")#content
             
             self.response.write('''<div id="footer">''')
             self.response.write("<br>")

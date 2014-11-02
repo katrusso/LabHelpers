@@ -1,11 +1,6 @@
-/*
-div#main {
-  background-color: #696969;
-}
-*/
 
 div#header {
-  position: absolute;
+  position: fixed;
   left: -1px;
   top: 8px;
   width:100%;
@@ -28,31 +23,44 @@ div#header {
 
   background-color: #DCDCDC;
 }
+
+
+div#nav {
+  position: absolute;
+  top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 90px;
+  background-color:#FFF5EE;
+}
   
-div#middle {
+div#content {
+  position: absolute;
   /*
   margin-top: 100px;
   margin-left: 110px;
   margin-right: 210px;
   padding:15px;
-  */
-  position: absolute;
   margin-left: 220px;
-  top: 100px;
   width: 720px;
-  height: 400px;
+  */
+  top: 110px;
+  width: 100%;
+  height: 1000px;
 
   background-color: #F0F8FF;
+
 }
 
-
+/*
 div#left {
   position: absolute;
   left: 10px; 
   top: 100px; 
   width: 200px; 
   height: 400px; 
-  /*
+  
   padding:5px; float-left;
   border-left-color: #ffdab9;
   border-left-style: solid;
@@ -60,7 +68,7 @@ div#left {
   border-right-color: #ffdab9;
   border-right-style: solid;
   border-right-width: 1px;
-  */
+  
 
   background-color: #FFF5EE;
 }
@@ -74,7 +82,7 @@ div#right {
 
   background-color: #F5FFFA;
 }
-
+*/
 
 div#footer {
   position: absolute;
@@ -100,15 +108,3 @@ div#footer {
 
   background-color: #808080; 
 }
-
-
-/*
-li a {
-	color:  green;
-}
-
-
-body {
-    background: white url("images/background.gif") no-repeat center bottom;
-}
-*/
