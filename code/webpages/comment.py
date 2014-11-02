@@ -30,7 +30,18 @@ class Greeting(ndb.Model):
 #webpage for the comments 
 class CommentPage(webapp2.RequestHandler):
   def get(self):
-        self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(OPEN_HTML.substitute(head='''<link type="
+        text/css" rel="stylesheet" href="/stylesheets/comment.css" 
+            />'''))
+        self.response.write('''<div class="header">''')
+        self.response.write('<h1> <img src="emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
+        self.response.write('</div>')#header
+        
+        self.response.write('''<div class="sub-heading">''')
+        self.response.write('<h2>Let us know how we\'re doing <br><br></h2>')
+        self.response.write('</div>')#sub-heading
+        
+        
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
         greetings_query = Greeting.query(
@@ -38,14 +49,21 @@ class CommentPage(webapp2.RequestHandler):
         greetings = greetings_query.fetch(MAXCOMMENT)
 
         #write previous comments
+		self.response.write('''<div class="comment-body">''')
         for greeting in greetings:
             if greeting.author:
-                self.response.write(
-                        '<b>%s</b> wrote:' % greeting.author.nickname())
+            	self.response.write('<h3><b>%s</b> wrote:<br></h3>' % greeting.author.nickname()))
+                #self.response.write(
+                 #       '<b>%s</b> wrote:' % greeting.author.nickname())
             else:
-                self.response.write('An anonymous person wrote:')
-            self.response.write('<blockquote>%s</blockquote>' %
+            	self.response.write('<h3>An anonymous person wrote:<br></h3>')
+                #self.response.write('An anonymous person wrote:')
+            self.response.write('<h4><blockquote>%s</blockquote></h4>' %
                                 cgi.escape(greeting.content))
+            self.response.write('</div>')#comment-body
+            
+            #self.response.write('<blockquote>%s</blockquote>' %
+             #                   cgi.escape(greeting.content))
 
         # Write the submission form and the footer of the page
         sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
