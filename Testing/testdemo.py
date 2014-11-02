@@ -6,7 +6,6 @@
 import unittest
 from google.appengine.ext import db
 from google.appengine.ext import testbed
-from google.appengine.datastore import datastore_stub_util
 
 class DemoTestCase(unittest.TestCase):
 
