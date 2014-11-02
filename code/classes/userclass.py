@@ -18,12 +18,19 @@ def lab_response_key(lab_id,username):
 
 class LabResponses(ndb.Model):
     responses = ndb.IntegerProperty(repeated=True)
+    correct = ndb.IntegerProperty(repeated=True)
 
 class User(ndb.Model):
     def query_responses(self,lab_id,username):
-        responses = LabResponses.query(
+        lab_responses = LabResponses.query(
             ancestor=lab_response_key(lab_id,username))
-        return responses.fetch()
+        return lab_responses.fetch()
+    def __add_responses__(self,lab_id,username,responses,correct):
+        lab_responses = LabResponses(
+            parent=lab_response_key(lab_id,username))
+        lab_responses.responses=responses
+        lab_responses.correct=correct
+        lab_responses.put()
 
     rin_number = ndb.StringProperty()
     lab_ids = ndb.IntegerProperty(repeated=True)
