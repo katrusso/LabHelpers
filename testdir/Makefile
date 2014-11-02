@@ -30,7 +30,7 @@ backupengine:
 
 clean:
 	rm *.py*
-	rm *.yaml
+	rm app.yaml
 	rm *.html
 	rm -R stylesheets
 
