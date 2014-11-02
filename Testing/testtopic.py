@@ -2,6 +2,8 @@ import unittest
 import topic
 from google.appengine.ext import testbed
 from google.appengine.ext import ndb
+from google.appengine.datastore import datastore_stub_util
+
 
 class TopicClassTest(unittest.TestCase):
 
@@ -10,13 +12,16 @@ class TopicClassTest(unittest.TestCase):
     self.testbed = testbed.Testbed()
     # Then activate the testbed, which prepares the service stubs for use.
     self.testbed.activate()
+    # Create a consistency policy that will simulate the High Replication consistency model.
+    self.policy = datastore_stub_util.PseudoRandomHRConsistencyPolicy(probability=0)
     # Initialize the datastore stub with this policy.
-    self.testbed.init_all_stubs
+    self.testbed.init_datastore_v3_stub(consistency_policy=self.policy)
+    self.testbed.init_memcache_stub()
 
   def tearDown(self):
     self.testbed.deactivate()
 
-  def creationAndRetrievalTest(self):
+  def testCreationAndRetrieval(self):
     ###INPUT OF SOMESORT###
     topic_object = topic.Topic(parent=topic.topic_key(1))
     topic_object.name = "First"
