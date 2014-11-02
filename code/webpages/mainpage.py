@@ -14,6 +14,7 @@ import userpage
 import admin
 import addquestion
 import addtopic
+import addlab
 import userclass
 
 
@@ -39,6 +40,10 @@ class MainPage(webapp2.RequestHandler):
             self.response.write('''<div id="nav">''')
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
+            self.response.write("<br>")
+            self.response.write(FORM_HTML.substitute(action="",method="post"))
+            self.response.write(SUBMIT_HTML.substitute(value="Sign Out (temporary)"))
+            self.response.write(CLOSE_FORM_HTML)
             if users.is_current_user_admin(): 
                 self.response.write(LINK_HTML.substitute(link="/admin", text="Admin Page"))
             self.response.write("<br>")
@@ -84,4 +89,5 @@ application = webapp2.WSGIApplication([
     ('/admin', admin.Admin),
     ('/admin/questions', addquestion.AddQuestion),
     ('/admin/topic', addtopic.AddTopic),
+    ('/admin/lab', addlab.AddLab),
 ], debug=True)
