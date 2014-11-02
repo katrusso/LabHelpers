@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-def __sign_in__(page, nickname):
+def sign_in(page, nickname):
     user_query = User.query(
         ancestor=user_key(nickname)).order(
             User.rin_number)
@@ -21,7 +21,7 @@ class LabResponses(ndb.Model):
     correct = ndb.IntegerProperty(repeated=True)
 
 class User(ndb.Model):
-    def query_responses(self,lab_id,username):
+    def __query_responses__(self,lab_id,username):
         lab_responses = LabResponses.query(
             ancestor=lab_response_key(lab_id,username))
         return lab_responses.fetch()

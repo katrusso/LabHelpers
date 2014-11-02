@@ -7,12 +7,15 @@ from google.appengine.ext import ndb
 import webapp2
 
 #Other webpage files
+import comment
 import labpages
 import meow
-import comment
-import database
-import userclass
 import userpage
+import admin
+import addquestion
+import addtopic
+import userclass
+
 
 from html_constants import *
 
@@ -22,7 +25,7 @@ class MainPage(webapp2.RequestHandler):
         
         username = users.get_current_user()
         if username:
-            user_object = userclass.__sign_in__(self,username.nickname())
+            user_object = userclass.sign_in(self,username.nickname())
             #include the css sheets and open the html
             self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
@@ -91,7 +94,7 @@ application = webapp2.WSGIApplication([
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
     ('/sign', comment.Comment),
-    ('/admin', database.Admin),
-    ('/admin/questions', database.AddQuestion),
-    ('/admin/topic', database.AddTopic),
+    ('/admin', admin.Admin),
+    ('/admin/questions', addquestion.AddQuestion),
+    ('/admin/topic', addtopic.AddTopic),
 ], debug=True)

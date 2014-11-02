@@ -173,7 +173,7 @@ class LabPage(webapp2.RequestHandler):
 
     def __check_login__(self):
         username = users.get_current_user()
-        return userclass.__sign_in__(self,username.nickname())
+        return userclass.sign_in(self,username.nickname())
         
 #Implements the gatherQuestions function to select questions based on 
 #lab id
@@ -186,7 +186,7 @@ class StaticLabPage(LabPage):
 
     def __get_responses__(self,user_object):
         username = users.get_current_user()
-        return user_object[0].query_responses(self.__get_labID__(),username.nickname())
+        return user_object[0].__query_responses__(self.__get_labID__(),username.nickname())
     def __add_responses__(self,user_object,lab_id,responses,correct):
         username = users.get_current_user()
         user_object[0].__add_responses__(lab_id,username.nickname(),responses,correct)
