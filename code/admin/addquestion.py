@@ -9,36 +9,10 @@ import webapp2
 from html_constants import *
 import questions
 import topic
-class AdminPage(webapp2.RequestHandler):
-    def get(self):
-        if not users.is_current_user_admin(): 
-            self.abort(404)
-        self.__write_html__()
-
-#admin page that leads to either the topic adder or question adder
-class Admin(AdminPage):
-
-    def __write_html__(self):
-        self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(FORM_HTML.substitute(action="/",
-                                                 method="link"))
-        #sign out button
-        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(FORM_HTML.substitute(action="/admin/questions",
-                                                 method="link"))
-        #question adding link
-        self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(FORM_HTML.substitute(action="/admin/topic",
-                                                 method="link"))
-        #topic adding link
-        self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(CLOSE_HTML)
+import admin
 
 #webpage to add a question
-class AddQuestion(AdminPage):
+class AddQuestion(admin.AdminPage):
     #prints all of the different inputs
     def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
@@ -105,25 +79,4 @@ class AddQuestion(AdminPage):
         question.answers = correct_answers
         question.topic = topic_name
         question.put()
-        self.redirect(self.request.uri)
-
-#interface for the topic adding (works the same way as the question one
-class AddTopic(AdminPage):
-    def __write_html__(self):
-
-        self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(FORM_HTML.substitute(action="",method="post"))
-        self.response.write("Enter topic name:")
-        self.response.write(TEXTBOX_HTML.substitute(name="topic",
-                                                    row=1,
-                                                    col=30,
-                                                    text=""))
-        self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(CLOSE_HTML)
-    def post(self):
-        topic_name=self.request.get('topic')
-        topic_object = topic.Topic(parent=topic.topic_key(1))
-        topic_object.name = topic_name
-        topic_object.put()
         self.redirect(self.request.uri)
