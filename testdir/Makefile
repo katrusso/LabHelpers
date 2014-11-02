@@ -1,4 +1,3 @@
-
 CODEDIR = ../code
 TESTDIR = ./
 SOURCES = $(CODEDIR)/webpages/*.py  \
@@ -21,6 +20,8 @@ copy:
 	cp $(IMAGES) .
 appengine:
 	$(GOOGLEPATH) ./
+newappengine:
+	$(GOOGLEPATH) --clear_datastore=yes ./
 backup:
 	cp $(SOURCES) $(BACKUPDIR)
 	cp $(APPFILE) $(BACKUPDIR)

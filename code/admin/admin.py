@@ -21,21 +21,15 @@ class Admin(AdminPage):
 
     def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(FORM_HTML.substitute(action="/",
-                                                 method="link"))
-        #sign out button
-        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(FORM_HTML.substitute(action="/admin/questions",
-                                                 method="link"))
-        #question adding link
-        self.response.write(SUBMIT_HTML.substitute(value="Add Question"))
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(FORM_HTML.substitute(action="/admin/topic",
-                                                 method="link"))
-        #topic adding link
-        self.response.write(SUBMIT_HTML.substitute(value="Add Topic"))
-        self.response.write(CLOSE_FORM_HTML)
+
+        self.response.write(LINK_HTML.substitute(link="/",
+                                                 text="Return to Main Page<br>"))
+        self.response.write(LINK_HTML.substitute(link="/admin/lab",
+                                                 text="Add Lab<br>"))
+        self.response.write(LINK_HTML.substitute(link="/admin/topic",
+                                                 text="Add Topic<br>"))        
+        self.response.write(LINK_HTML.substitute(link="/admin/questions",
+                                                 text="Add Question<br>"))
         self.response.write(CLOSE_HTML)
 
 
