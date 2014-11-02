@@ -47,7 +47,7 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(LINK_HTML.substitute(link="/meow", text="Meow"))
             self.response.write("</div><br>")
             self.response.write("</div><br>")
-            self.response.write ("</div>")#nav
+            self.response.write("</div>")#nav
             #self.response.write("<br><br>")
 
             self.response.write('''<div id="content">''')
