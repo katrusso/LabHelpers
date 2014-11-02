@@ -1,11 +1,11 @@
 
 CODEDIR = ../code
 TESTDIR = ./
-CLOUDDIR = ../cloud_git
 SOURCES = $(CODEDIR)/webpages/*.py  \
 	$(CODEDIR)/classes/*.py \
 	$(CODEDIR)/admin/*.py \
 	$(CODEDIR)/html/html_constants.py 
+IMAGES = $(CODEDIR)/images/* 
 APPFILE = $(CODEDIR)/webpages/app.yaml #There should only be one 
 HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/webpages/stylesheets
@@ -18,6 +18,7 @@ copy:
 	cp $(APPFILE) .
 	cp $(HTMLFILES) .
 	cp -R $(SYTLEDIRS) .
+	cp $(IMAGES) .
 appengine:
 	$(GOOGLEPATH) ./
 backup:
@@ -34,10 +35,4 @@ clean:
 	rm app.yaml
 	rm *.html
 	rm -R stylesheets
-
-cloudgit:
-	gcloud init lab-helpers-546
-	mv lab-helpers-546 $(CLOUDDIR)
-
-cloudpush:
-	cp -R $(CODEDIR) $(TESTDIR) $(CLOUDDIR)
+	rm *.png
