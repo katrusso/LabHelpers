@@ -22,7 +22,7 @@ class AddLab(admin.AdminPage):
                                                     text=""))
         self.response.write("Enter the lab name:")
         self.response.write(TEXTBOX_HTML.substitute(name="lab_name",
-                                                    row=1
+                                                    row=1,
                                                     col=30,
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Add Lab"))
