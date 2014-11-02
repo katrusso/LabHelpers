@@ -10,6 +10,7 @@ APPFILE = $(CODEDIR)/webpages/app.yaml #There should only be one
 HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/webpages/stylesheets
 BACKUPDIR = ../backup
+TESTBACKUPDIR = ../testingbackup
 
 all: copy
 
@@ -25,6 +26,9 @@ backup:
 	cp $(APPFILE) $(BACKUPDIR)
 	cp $(HTMLFILES) $(BACKUPDIR)
 	cp -R $(SYTLEDIRS) $(BACKUPDIR)
+	
+testbackup:
+	cp -R . $(TESTBACKUPDIR)
 
 backupengine:
 	$(GOOGLEPATH) $(BACKUPDIR)
