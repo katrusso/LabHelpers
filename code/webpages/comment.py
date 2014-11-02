@@ -47,12 +47,12 @@ class CommentPage(webapp2.RequestHandler):
         greetings_query = Greeting.query(
             ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
         greetings = greetings_query.fetch(MAXCOMMENT)
-
+        greetings.reverse()
         #write previous comments
-		self.response.write('''<div class="comment-body">''')
+        self.response.write('''<div class="comment-body">''')
         for greeting in greetings:
             if greeting.author:
-            	self.response.write('<h3><b>%s</b> wrote:<br></h3>' % greeting.author.nickname()))
+            	self.response.write('<h3><b>%s</b> wrote:<br></h3>' % greeting.author.nickname())
                 #self.response.write(
                  #       '<b>%s</b> wrote:' % greeting.author.nickname())
             else:
