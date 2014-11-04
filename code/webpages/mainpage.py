@@ -32,38 +32,37 @@ class MainPage(webapp2.RequestHandler):
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
                 />'''))
             
-            self.response.write('''<div id="header">''')
+            self.response.write(CSS_HTML.substitute(id="header"))
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<h1>LabHelpers</h1>")
-            self.response.write("</div>")#header
+            self.response.write(CLOSE_ALIGN_HTML)
+            self.response.write(CLOSE_CSS_HTML)#header
 
-            self.response.write('''<div id="nav">''')
+            self.response.write(CSS_HTML.substitute(id="nav"))
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<br>")
-            #self.response.write(FORM_HTML.substitute(action="",method="post"))
-            #self.response.write(SUBMIT_HTML.substitute(value="Sign Out (temporary)"))
-            #self.response.write(CLOSE_FORM_HTML)
             if users.is_current_user_admin(): 
                 self.response.write(LINK_HTML.substitute(link="/admin", text="Admin Page"))
             self.response.write("<br>")
             self.response.write(LINK_HTML.substitute(link="/comment", text="Comment"))
             self.response.write("<br>")
             self.response.write(LINK_HTML.substitute(link="/meow", text="Meow"))
-            self.response.write("</div><br>")
-            self.response.write("</div><br>")
-            self.response.write("</div>")#nav
+            self.response.write("<br>")
+            self.response.write(CLOSE_ALIGN_HTML)
+            self.response.write(CLOSE_CSS_HTML)#nav
             #self.response.write("<br><br>")
 
-            self.response.write('''<div id="content">''')
+            self.response.write(CSS_HTML.substitute(id="content"))
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
                                                      text="Lab 17:Exam 2 Review"))
             self.response.write("<br>")
-            self.response.write("</div>")#content
+            self.response.write(CLOSE_ALIGN_HTML)
+            self.response.write(CLOSE_CSS_HTML)#content
             
-            self.response.write('''<div id="footer">''')
+            self.response.write(CSS_HTML.substitute(id="footer"))
             self.response.write("<br>")
             self.response.write(TAB_HTML)
             self.response.write("Content from Physics II Laboratory Manual by Scott Dwyer<br>")

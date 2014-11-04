@@ -9,6 +9,13 @@ OPEN_HTML=Template('''\
   <body>
 ''')
 
+CSS_HTML=Template('''\
+<div id=$id>
+''')
+CSS_CLASS_HTML = Template('''\
+<div class=$id>
+''')
+
 LINK_HTML=Template('''\
 <a href=$link> $text </a>
 ''')
@@ -49,12 +56,20 @@ TABLE_COLUMN_HTML = Template('''\
 <td> <div align="center">$text </div></td>
 ''')
 
+CLOSE_ALIGN_HTML = '''\
+</div>
+'''
+
 CLOSE_TABLE_HTML = '''\
 </table>
 '''
 
 CLOSE_FORM_HTML = '''\
 </form>
+'''
+
+CLOSE_CSS_HTML = '''\
+</div>
 '''
 
 CLOSE_HTML='''\

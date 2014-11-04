@@ -33,13 +33,13 @@ class CommentPage(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head='''<link type="
         text/css" rel="stylesheet" href="/stylesheets/comment.css" 
             />'''))
-        self.response.write('''<div class="header">''')
+        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
         self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
-        self.response.write('</div>')#header
+        self.response.write(CLOSE_CSS_HTML)#header
         
-        self.response.write('''<div class="sub-heading">''')
-        self.response.write('<h2>Let us know how we\'re doing <br><br></h2>')
-        self.response.write('</div>')#sub-heading
+        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
+        self.response.write('''<h2>Let us know how we're doing <br><br></h2>''')
+        self.response.write(CLOSE_CSS_HTML)#sub-heading
         
         
         guestbook_name = self.request.get('guestbook_name',
@@ -49,22 +49,16 @@ class CommentPage(webapp2.RequestHandler):
         greetings = greetings_query.fetch(MAXCOMMENT)
         greetings.reverse()
         #write previous comments
-        self.response.write('''<div class="comment-body">''')
+        self.response.write(CSS_CLASS_HTML.substitute(id="comment-body"))
         for greeting in greetings:
             if greeting.author:
             	self.response.write('<h3><b>%s</b> wrote:<br></h3>' % greeting.author.nickname())
-                #self.response.write(
-                 #       '<b>%s</b> wrote:' % greeting.author.nickname())
             else:
             	self.response.write('<h3>An anonymous person wrote:<br></h3>')
-                #self.response.write('An anonymous person wrote:')
             self.response.write('<h4><blockquote>%s</blockquote></h4>' %
                                 cgi.escape(greeting.content))
-            self.response.write('</div>')#comment-body
-            
-            #self.response.write('<blockquote>%s</blockquote>' %
-             #                   cgi.escape(greeting.content))
-
+        self.response.write(CLOSE_CSS_HTML)#comment-body
+    
         # Write the submission form and the footer of the page
         sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
         self.response.write(FORM_HTML.substitute(
@@ -78,7 +72,7 @@ class CommentPage(webapp2.RequestHandler):
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(LINK_HTML.substitute(link="/", 
                                                  text="Return to Main Page"))
-
+        self.response.write(CLOSE_HTML)
 #submit the comment to the database
 class Comment(webapp2.RequestHandler):
     def post(self):
