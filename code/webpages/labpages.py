@@ -181,7 +181,8 @@ class StaticLabPage(LabPage):
     #Gets the id of the lab from the url
     def __get_labID__(self):
         my_url = self.request.uri
-        lab_id = my_url[len(my_url)-3:len(my_url)-1]
+        ind = my_url[0:len(my_url)-1].rfind('/')
+        lab_id = my_url[ind+1:(len(my_url)-1)]
         return int(lab_id)
 
     def __get_responses__(self,user_object):

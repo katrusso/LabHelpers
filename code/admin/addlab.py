@@ -29,9 +29,10 @@ class AddLab(admin.AdminPage):
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
     def post(self):
-        lab_id=self.request.get("lab_id")
+        lab_id=int(self.request.get("lab_id"))
         lab_name=self.request.get("lab_name")
-        lab_object = lab.Lab(parent=lab.lab_key(lab_id))
+        lab_object = lab.Lab(parent=lab.lab_key(1))
+        lab_object.id=lab_id
         lab_object.name = lab_name
         lab_object.put()
         self.redirect(self.request.uri)

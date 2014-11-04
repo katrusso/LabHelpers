@@ -16,6 +16,7 @@ import addquestion
 import addtopic
 import addlab
 import userclass
+import lab
 
 
 from html_constants import *
@@ -51,13 +52,17 @@ class MainPage(webapp2.RequestHandler):
             self.response.write("<br>")
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#nav
-            #self.response.write("<br><br>")
 
             self.response.write(CSS_HTML.substitute(id="content"))
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
-            self.response.write(LINK_HTML.substitute(link="/StaticLab/17/",
-                                                     text="Lab 17:Exam 2 Review"))
+            lab_query = lab.Lab.query(ancestor=lab.lab_key(1)).order(lab.Lab.id)
+            lab_list = lab_query.fetch()
+            for lab_object in lab_list:
+                self.response.write(LINK_HTML.substitute(
+                    link="/StaticLab/"+str(lab_object.id)+"/",
+                    text="Lab "+str(lab_object.id)+": "+lab_object.name))
+                self.response.write("<br>")
             self.response.write("<br>")
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#content
@@ -80,8 +85,8 @@ class MainPage(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/signup', userpage.SignUp),
-    ('/StaticLab/17/', labpages.StaticLabPage),
-    ('/DynamicLab/17/', labpages.DynamicLabPage),
+    ('/StaticLab/.*/', labpages.StaticLabPage),
+    ('/DynamicLab/.*/', labpages.DynamicLabPage),
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
     ('/sign', comment.Comment),

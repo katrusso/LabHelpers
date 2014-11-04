@@ -6,3 +6,4 @@ def lab_key(lab_id=0):
 
 class Lab(ndb.Model):
     name = ndb.StringProperty()
+    id = ndb.IntegerProperty()

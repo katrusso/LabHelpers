@@ -9,6 +9,7 @@ import webapp2
 from html_constants import *
 import questions
 import topic
+import lab
 import admin
 
 #webpage to add a question
@@ -18,12 +19,12 @@ class AddQuestion(admin.AdminPage):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Choose Lab Number: <br>")
-        self.response.write(RADIO_HTML.substitute(name="labid",
-                                                  value=1,
-                                                  text="Test Lab"))
-        self.response.write(RADIO_HTML.substitute(name="labid",
-                                                  value=17,
-                                                  text="Lab 17"))
+        lab_query = lab.Lab.query(ancestor=lab.lab_key(1)).order(lab.Lab.id)
+        lab_list = lab_query.fetch()
+        for lab_object in lab_list:
+            self.response.write(RADIO_HTML.substitute(name="labid",
+                 value=lab_object.id,
+                 text=str(lab_object.id)+". "+lab_object.name))
         self.response.write(RADIO_HTML.substitute(name="labid",
                                                   value=4444,
                                                   text="Practice Problems"))
