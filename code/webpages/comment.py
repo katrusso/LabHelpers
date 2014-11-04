@@ -34,7 +34,7 @@ class CommentPage(webapp2.RequestHandler):
         text/css" rel="stylesheet" href="/stylesheets/comment.css" 
             />'''))
         self.response.write('''<div class="header">''')
-        self.response.write('<h1> <img src="/images/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
+        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
         self.response.write('</div>')#header
         
         self.response.write('''<div class="sub-heading">''')
@@ -76,9 +76,8 @@ class CommentPage(webapp2.RequestHandler):
                                                     text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Leave Comment"))
         self.response.write(CLOSE_FORM_HTML)
-        self.response.write(FORM_HTML.substitute(action="/", method="link"))
-        self.response.write(SUBMIT_HTML.substitute(value="Return to Main Page"))
-        self.response.write(CLOSE_FORM_HTML)
+        self.response.write(LINK_HTML.substitute(link="/", 
+                                                 text="Return to Main Page"))
 
 #submit the comment to the database
 class Comment(webapp2.RequestHandler):

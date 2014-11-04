@@ -41,9 +41,9 @@ class MainPage(webapp2.RequestHandler):
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<br>")
-            self.response.write(FORM_HTML.substitute(action="",method="post"))
-            self.response.write(SUBMIT_HTML.substitute(value="Sign Out (temporary)"))
-            self.response.write(CLOSE_FORM_HTML)
+            #self.response.write(FORM_HTML.substitute(action="",method="post"))
+            #self.response.write(SUBMIT_HTML.substitute(value="Sign Out (temporary)"))
+            #self.response.write(CLOSE_FORM_HTML)
             if users.is_current_user_admin(): 
                 self.response.write(LINK_HTML.substitute(link="/admin", text="Admin Page"))
             self.response.write("<br>")

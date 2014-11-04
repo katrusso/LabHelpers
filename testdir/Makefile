@@ -4,7 +4,7 @@ SOURCES = $(CODEDIR)/webpages/*.py  \
 	$(CODEDIR)/classes/*.py \
 	$(CODEDIR)/admin/*.py \
 	$(CODEDIR)/html/html_constants.py 
-IMAGES = $(CODEDIR)/images/* 
+IMAGES = $(CODEDIR)/webpages/images/* 
 APPFILE = $(CODEDIR)/webpages/app.yaml #There should only be one 
 HTMLFILES = $(CODEDIR)/helloworld/index.html
 SYTLEDIRS = $(CODEDIR)/webpages/stylesheets
@@ -17,7 +17,7 @@ copy:
 	cp $(APPFILE) .
 	cp $(HTMLFILES) .
 	cp -R $(SYTLEDIRS) .
-	cp $(IMAGES) .
+	cp $(IMAGES) stylesheets
 appengine:
 	dev_appserver.py ./
 backup:
@@ -34,4 +34,3 @@ clean:
 	rm app.yaml
 	rm *.html
 	rm -R stylesheets
-	rm *.png
