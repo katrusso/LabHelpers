@@ -14,11 +14,14 @@ class AdminPage(webapp2.RequestHandler):
     def get(self):
         if not users.is_current_user_admin(): 
             self.abort(404)
+        self.__write_link_to_admin__()
+        self.response.write("<br>")
         self.__write_html__()
 
 #admin page that leads to either the topic adder or question adder
 class Admin(AdminPage):
-
+    def __write_link_to_admin__(self):
+        return
     def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
 

@@ -15,6 +15,10 @@ import admin
 #webpage to add a question
 class AddQuestion(admin.AdminPage):
     #prints all of the different inputs
+    def __write_link_to_admin__(self):
+        self.response.write(LINK_HTML.substitute(link="/admin",
+                                                 text="Return to Admin Page"))
+        self.response.write("<br>")
     def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))

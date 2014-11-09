@@ -13,6 +13,10 @@ import admin
 
 #interface for the topic adding (works the same way as the question one
 class AddTopic(admin.AdminPage):
+    def __write_link_to_admin__(self):
+        self.response.write(LINK_HTML.substitute(link="/admin",
+                                                 text="Return to Admin Page"))
+        self.response.write("<br>")
     def __write_html__(self):
 
         self.response.write(OPEN_HTML.substitute(head=""))

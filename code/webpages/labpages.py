@@ -107,6 +107,7 @@ class LabPage(webapp2.RequestHandler):
                     correct[j]=correct[j]+1
                 
         #Print the results of the lab
+        num_correct=0
         self.response.write(ALIGN_HTML.substitute(align="center"))
         if lab_id==4444:
             self.response.write("<b><ins> Practice lab results </ins></b><br>")
@@ -116,15 +117,18 @@ class LabPage(webapp2.RequestHandler):
         self.response.write("<tr>")
         for i in topics:
             self.response.write(TABLE_COLUMN_HTML.substitute(text=i))
+        self.response.write(TABLE_COLUMN_HTML.substitute(text="total"))
         self.response.write("</tr>")
         self.response.write("<tr>")
         for i in range(len(topics)):
             temp_val = correct[i]*100.0/totals[i]
+            num_correct = num_correct + correct[i]
             self.response.write(TABLE_COLUMN_HTML.substitute(
-                text = str(temp_val)+"%"))
+                text = str("{:10.2f}".format(temp_val))+"%"))
+        self.response.write(TABLE_COLUMN_HTML.substitute(text = str("{:10.2f}".format(num_correct*100.0/len(self.question_list)))+"%"))
         self.response.write("</tr>")
         self.response.write(CLOSE_TABLE_HTML)
-        self.response.write("</div>")
+        self.response.write(CLOSE_ALIGN_HTML)
 
         #rewrite each question bolding the correct answer and marking the selected choice
         num=0
