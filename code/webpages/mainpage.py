@@ -17,6 +17,7 @@ import addtopic
 import addlab
 import userclass
 import lab
+import bugsnag
 
 
 from html_constants import *
@@ -24,6 +25,12 @@ from html_constants import *
 #main page that is initially run
 class MainPage(webapp2.RequestHandler):
     def get(self):
+    
+        bugsnag.configure(
+            api_key = "780ff3a44e2fb9798e2319078059b5a1", #generated at bugsnag.com
+            project_root = "./",    #path/to/your/app
+        )
+
         
         username = users.get_current_user()
         if username:
