@@ -28,7 +28,10 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(FORM_HTML.substitute(action="",method="post"))
 
         if len(self.question_list)==0:
-            self.redirect('/')
+            self.response.write("Sorry no questions to display<br>")
+            self.response.write(LINK_HTML.substitute(link="/",
+                                                     text="Return to Main Page"))
+            return;
         #run through each question creating a multiple choice question for it
         for question in self.question_list:
             self.num=self.num+1
@@ -182,24 +185,3 @@ class LabPage(webapp2.RequestHandler):
         return userclass.sign_in(self,username.nickname())
         
 
-
-#Implements the gatherQuestions function to select questions based on 
-#poorly completed topics
-class DynamicLabPage(LabPage):
-    #Gets the id of the lab from the url
-    def __get_labID__(self):
-        return 4444
-    def __get_responses__(self,user_object):
-        return []
-    def __add_responses__(self,user_object,lab_id,responses,correct):
-        return;
-    def __gather_questions__(self,sort_by_topic):
-        self.question_list=[]
-        lab_id=4444
-        topics = self.request.get_all("topics")
-        questions_query = questions.Question.query(
-            ancestor=questions.lab_key(4444)).order(questions.Question.topic)
-        temp_list = questions_query.fetch()
-        for i in temp_list:
-            if i.topic in topics:
-                self.question_list.append(i)

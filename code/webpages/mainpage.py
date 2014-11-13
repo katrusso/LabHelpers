@@ -10,8 +10,8 @@ import webapp2
 
 #Other webpage files
 import comment
-import labpages
 import static
+import dynamic
 import labtopic
 import meow
 import userpage
@@ -97,7 +97,7 @@ application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/signup', userpage.SignUp),
     ('/StaticLab/.*/', static.StaticLabPage),
-    ('/DynamicLab/.*/', labpages.DynamicLabPage),
+    ('/DynamicLab/.*/', dynamic.DynamicLabPage),
     ('/StaticLab/.*/.*', labtopic.LabTopic),
     ('/DynamicLab/.*/.*', labtopic.LabTopic),
     ('/meow', meow.MeowPage),
