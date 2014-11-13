@@ -8,7 +8,6 @@ import webapp2
 
 import questions
 import userclass
-
 from html_constants import *
 
 #Skeleton of the algorithm for showing a lab
@@ -21,14 +20,15 @@ class LabPage(webapp2.RequestHandler):
         
         user_object =self.__check_login__()
         lab_responses=self.__get_responses__(user_object)
-        self.__gather_questions__()
+        self.__gather_questions__(False)
         if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
             self.post()
             return
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
 
-        
+        if len(self.question_list)==0:
+            self.redirect('/')
         #run through each question creating a multiple choice question for it
         for question in self.question_list:
             self.num=self.num+1
@@ -56,7 +56,7 @@ class LabPage(webapp2.RequestHandler):
         #query for the number of questions
         lab_id = self.__get_labID__()
         user_object =self.__check_login__()
-        self.__gather_questions__()
+        self.__gather_questions__(True)
         topics = []
         totals = []
         select = []
@@ -116,7 +116,8 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
         self.response.write("<tr>")
         for i in topics:
-            self.response.write(TABLE_COLUMN_HTML.substitute(text=i))
+            self.response.write(TABLE_COLUMN_HTML.substitute(
+                text=LINK_HTML.substitute(link=i, text=i)))
         self.response.write(TABLE_COLUMN_HTML.substitute(text="total"))
         self.response.write("</tr>")
         self.response.write("<tr>")
@@ -135,6 +136,7 @@ class LabPage(webapp2.RequestHandler):
         for j in range(len(self.question_list)):
             question = self.question_list[j]
             num=num+1
+            self.response.write(question.topic+"<br>")
             self.response.write(str(num)+". ")
             self.response.write(question.question)
             self.response.write("<br>")
@@ -179,28 +181,7 @@ class LabPage(webapp2.RequestHandler):
         username = users.get_current_user()
         return userclass.sign_in(self,username.nickname())
         
-#Implements the gatherQuestions function to select questions based on 
-#lab id
-class StaticLabPage(LabPage):
-    #Gets the id of the lab from the url
-    def __get_labID__(self):
-        my_url = self.request.uri
-        ind = my_url[0:len(my_url)-1].rfind('/')
-        lab_id = my_url[ind+1:(len(my_url)-1)]
-        return int(lab_id)
 
-    def __get_responses__(self,user_object):
-        username = users.get_current_user()
-        return user_object[0].__query_responses__(self.__get_labID__(),username.nickname())
-    def __add_responses__(self,user_object,lab_id,responses,correct):
-        username = users.get_current_user()
-        user_object[0].__add_responses__(lab_id,username.nickname(),responses,correct)
-    def __gather_questions__(self):
-        #gets the questions for the specific lab ID
-        lab_id = self.__get_labID__()
-        questions_query = questions.Question.query(
-            ancestor=questions.lab_key(lab_id)).order(questions.Question.number)
-        self.question_list = questions_query.fetch()
 
 #Implements the gatherQuestions function to select questions based on 
 #poorly completed topics
@@ -212,7 +193,7 @@ class DynamicLabPage(LabPage):
         return []
     def __add_responses__(self,user_object,lab_id,responses,correct):
         return;
-    def __gather_questions__(self):
+    def __gather_questions__(self,sort_by_topic):
         self.question_list=[]
         lab_id=4444
         topics = self.request.get_all("topics")

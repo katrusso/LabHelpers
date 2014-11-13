@@ -6,9 +6,13 @@ from google.appengine.ext import ndb
 
 import webapp2
 
+#import bugsnag
+
 #Other webpage files
 import comment
 import labpages
+import static
+import labtopic
 import meow
 import userpage
 import admin
@@ -17,7 +21,7 @@ import addtopic
 import addlab
 import userclass
 import lab
-import bugsnag
+
 
 
 from html_constants import *
@@ -26,10 +30,10 @@ from html_constants import *
 class MainPage(webapp2.RequestHandler):
     def get(self):
     
-        bugsnag.configure(
-            api_key = "780ff3a44e2fb9798e2319078059b5a1", #generated at bugsnag.com
-            project_root = "./",    #path/to/your/app
-        )
+#        bugsnag.configure(
+#            api_key = "780ff3a44e2fb9798e2319078059b5a1", #generated at bugsnag#.com
+#            project_root = "./",    #path/to/your/app
+#        )
 
         
         username = users.get_current_user()
@@ -92,8 +96,10 @@ class MainPage(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/signup', userpage.SignUp),
-    ('/StaticLab/.*/', labpages.StaticLabPage),
+    ('/StaticLab/.*/', static.StaticLabPage),
     ('/DynamicLab/.*/', labpages.DynamicLabPage),
+    ('/StaticLab/.*/.*', labtopic.LabTopic),
+    ('/DynamicLab/.*/.*', labtopic.LabTopic),
     ('/meow', meow.MeowPage),
     ('/comment', comment.CommentPage),
     ('/sign', comment.Comment),

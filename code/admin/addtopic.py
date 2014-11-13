@@ -9,6 +9,7 @@ import webapp2
 from html_constants import *
 import questions
 import topic
+import coach
 import admin
 
 #interface for the topic adding (works the same way as the question one
@@ -26,6 +27,22 @@ class AddTopic(admin.AdminPage):
                                                     row=1,
                                                     col=30,
                                                     text=""))
+        self.response.write("Enter in related equations:<br>")
+        for i in range(5):
+            self.response.write(TEXTBOX_HTML.substitute(name="equation",
+                                                        row=1,
+                                                        col=50,
+                                                        text=""))
+        self.response.write("Summary of Topic:<br>")
+        self.response.write(TEXTBOX_HTML.substitute(name="summary",
+                                                    row=5,
+                                                    col=100,
+                                                    text=""))
+        self.response.write("Example for topic:<br>")
+        self.response.write(TEXTBOX_HTML.substitute(name="example",
+                                                    row=10,
+                                                    col=100,
+                                                    text=""))
         self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
@@ -34,4 +51,12 @@ class AddTopic(admin.AdminPage):
         topic_object = topic.Topic(parent=topic.topic_key(1))
         topic_object.name = topic_name
         topic_object.put()
+        equations=self.request.get_all("equation")
+        summary=self.request.get("summary")
+        example=self.request.get("example")
+        coach_object = coach.Coach(parent=coach.topic_key(topic_name))
+        coach_object.equations=equations
+        coach_object.summary=summary
+        coach_object.example=example
+        coach_object.put()
         self.redirect(self.request.uri)
