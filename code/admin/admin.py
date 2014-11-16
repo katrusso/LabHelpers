@@ -13,7 +13,7 @@ import topic
 class AdminPage(webapp2.RequestHandler):
     def get(self):
         if not users.is_current_user_admin(): 
-            self.abort(404)
+            self.abort(403)
         self.__write_link_to_admin__()
         self.response.write("<br>")
         self.__write_html__()
