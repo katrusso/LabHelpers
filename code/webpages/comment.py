@@ -33,14 +33,7 @@ class CommentPage(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head='''<link type="
         text/css" rel="stylesheet" href="/stylesheets/comment.css" 
             />'''))
-        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
-        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
-        self.response.write(CLOSE_CSS_HTML)#header
-        
-        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-        self.response.write('''<h2>Let us know how we're doing <br><br></h2>''')
-        self.response.write(CLOSE_CSS_HTML)#sub-heading
-        
+        write_css_html(self,"Let us know how we're doing")
         
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)

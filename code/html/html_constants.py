@@ -9,14 +9,13 @@ OPEN_HTML=Template('''\
   <body>
 ''')
 
-def write_css_html(page): 
-
+def write_css_html(page,subheading): 
     page.response.write(CSS_CLASS_HTML.substitute(id="header"))
     page.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
     page.response.write(CLOSE_CSS_HTML)#header
-    
+        
     page.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-    page.response.write('Lab 17: Exam 2 Review <br><br><br>')
+    page.response.write("<h2>"+subheading+"<br><br></h2>")
     page.response.write(CLOSE_CSS_HTML)#sub-heading
 
 CSS_HTML=Template('''\
