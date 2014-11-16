@@ -6,6 +6,7 @@ from google.appengine.ext import ndb
 
 import webapp2
 
+import lab
 import questions
 import userclass
 import labpages
@@ -20,7 +21,17 @@ class StaticLabPage(labpages.LabPage):
         ind = my_url[0:len(my_url)-1].rfind('/')
         lab_id = my_url[ind+1:(len(my_url)-1)]
         return int(lab_id)
-
+    def __get_lab_name__(self):
+        lab_query = lab.Lab.query(ancestor=lab.lab_key(1)).order(lab.Lab.id)
+        lab_list = lab_query.fetch()
+        for i in lab_list:
+            if i.id==self.__get_labID__():
+                lab_object=i
+        return lab_object.name
+    def __write_header__(self):
+        lab_name = self.__get_lab_name__()
+        write_css_html(self,"Lab "+str(self.__get_labID__())+
+            ": "+lab_name) 
     def __get_responses__(self,user_object):
         username = users.get_current_user()
         return user_object[0].__query_responses__(self.__get_labID__(),username.nickname())

@@ -27,27 +27,23 @@ class LabTopic(webapp2.RequestHandler):
         text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
         
-        write_css_html(self)    #inserts page heading (image + labhelpers)
+        write_css_html(self,"<b>"+topic_name+"</b>")    #inserts page heading (image + labhelpers)
         
-        self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-        self.response.write(topic_name)
-        self.response.write(CLOSE_CSS_HTML)#sub-heading
         
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-body"))
-            self.response.write(CSS_CLASS_HTML.substitute(id="coach-section"))
+        self.response.write(CSS_CLASS_HTML.substitute(id="coach-section"))
 
-            self.response.write("<br><br>Relavent Equations:<br>")
-            for i in coach_object.equations:
-                self.response.write(i)
-                self.response.write("<br>")
-            self.__print__(coach_object.summary)
-            self.__print__(coach_object.example)
-            self.response.write(LINK_HTML.substitute(link=my_url[0:ind+1],
+        self.response.write("<br><br>Relavent Equations:<br>")
+        for i in coach_object.equations:
+            self.response.write(i)
+            self.response.write("<br>")
+        self.__print__(coach_object.summary)
+        self.__print__(coach_object.example)
+        self.response.write(LINK_HTML.substitute(link=my_url[0:ind+1],
                                                      text="Return to Lab"))
-            self.response.write(CLOSE_HTML)
+        self.response.write(CLOSE_HTML)
         
-            self.response.write(CLOSE_CSS_HTML)#coach-section
+        self.response.write(CLOSE_CSS_HTML)#coach-section
         self.response.write(CLOSE_CSS_HTML)#coach-body
 
         

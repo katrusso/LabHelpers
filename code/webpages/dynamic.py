@@ -17,6 +17,10 @@ class DynamicLabPage(labpages.LabPage):
     #Gets the id of the lab from the url
     def __get_labID__(self):
         return 4444
+    def __get_lab_name__(self):
+        return "Practice Problems"
+    def __write_header__(self):
+        write_css_html(self,"Practice Problems")
     def __get_responses__(self,user_object):
         return []
     def __add_responses__(self,user_object,lab_id,responses,correct):

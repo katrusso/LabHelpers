@@ -17,24 +17,25 @@ class LabPage(webapp2.RequestHandler):
     def get(self):
         self.num=0
         #starts off the webpage with a form
-        
-        
+                
         user_object =self.__check_login__()
         lab_responses=self.__get_responses__(user_object)
         self.__gather_questions__(False)
         if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
             self.post()
             return
+
+
         self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
-        write_css_html(self)
+        self.__write_header__()
         self.response.write(FORM_HTML.substitute(action="",method="post"))
 
         if len(self.question_list)==0:
             self.response.write("Sorry no questions to display<br>")
             self.response.write(LINK_HTML.substitute(link="/",
-                                                     text="Return to Main Page"))
+                                text="Return to Main Page"))
             return;
         
         
@@ -72,7 +73,9 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head='''<link type="
             text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
-        write_css_html(self)
+        lab_name = self.__get_lab_name__()
+        self.__write_header__()
+
         #query for the number of questions
         lab_id = self.__get_labID__()
         user_object =self.__check_login__()
