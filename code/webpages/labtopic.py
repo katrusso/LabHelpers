@@ -18,6 +18,9 @@ class LabTopic(webapp2.RequestHandler):
         topic_name = my_url[ind+1:len(my_url)]
         coach_query = coach.Coach.query(
             ancestor=coach.topic_key(topic_name))
+        coach_list = coach_query.fetch()
+        if len(coach_list)==0:
+            return;
         coach_object = coach_query.fetch()[0]
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(topic_name)
