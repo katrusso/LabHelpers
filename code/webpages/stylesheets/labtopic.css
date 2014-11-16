@@ -1,0 +1,70 @@
+
+h1{
+	display: inline;
+	color: #black;
+	letter-spacing: 1px;
+	text-align: left;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16;
+	font-weight: bold;
+	background-color: #white;
+	padding-left: 15px;
+	padding-bottom: 3px;
+}
+
+h2{
+	color: black;
+	letter-spacing: 1px;
+	text-indent: 25px;
+	text-align: left;
+	font-weight: bold;
+	font-style: italic;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.sub-heading{
+	background-color:#f7f7f7; /* light gray: #f7f7f7 #F5FFFA; */
+	margin-right: -15px;
+	border-top: 1px solid #333;
+	-style: solid;
+	border-top-width: thin;
+	border-top-color: #585a5b;
+	left: 15px;
+	right: 15px;
+	margin-left: -15px;
+}
+
+
+h3{
+	
+	color: #278998;
+	background-color: #FFF5EE; /* light gray: #f7f7f7 */
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 10;
+	font-weight: bold;	
+	text-indent: 25px;
+	
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-left: -15px;
+	margin-right: -15px;
+	margin-bottom: -25px;
+	
+	border-top: 1px solid #333;
+	-style: solid;
+	border-top-width: thick;
+	border-top-color: #585a5b;
+}
+
+h4{
+	padding: 5px; /*how big the "text box" is */
+	opacity: 1; /* how transparent the background color is*/
+	
+	/* text box border */
+	-moz-box-shadow: inset 0 1px 1px #937c7b, 0 25px hsl(0, 0%, 96%);
+	box-shadow: inset 0 1px 1px #937c7b, 0 25px hsl(0, 0%, 96%);
+	border-left: -15px solid #f7f7f7;
+	border-right: -15px solid #f7f7f7;
+}
+
+
