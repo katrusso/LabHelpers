@@ -77,6 +77,11 @@ class LabPage(webapp2.RequestHandler):
     
     #After submission page
     def post(self):
+    
+        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
+        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
+        self.response.write(CLOSE_CSS_HTML)#header
+        
         #query for the number of questions
         lab_id = self.__get_labID__()
         user_object =self.__check_login__()
@@ -139,6 +144,8 @@ class LabPage(webapp2.RequestHandler):
             self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>")
         self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
         self.response.write("<tr>")
+        
+        
         for i in topics:
             self.response.write(TABLE_COLUMN_HTML.substitute(
                 text=LINK_HTML.substitute(link=i, text=i)))
@@ -158,9 +165,12 @@ class LabPage(webapp2.RequestHandler):
         #rewrite each question bolding the correct answer and marking the selected choice
         num=0
         for j in range(len(self.question_list)):
+            self.response.write(CSS_CLASS_HTML.substitute(id="question"))
             question = self.question_list[j]
             num=num+1
+            self.response.write(CSS_CLASS_HTML.substitute(id="section-heading"))
             self.response.write(question.topic+"<br>")
+            self.response.write(CLOSE_CSS_HTML)#section-heading
             self.response.write(str(num)+". ")
             self.response.write(question.question)
             self.response.write("<br>")
@@ -177,6 +187,8 @@ class LabPage(webapp2.RequestHandler):
                     self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
+            self.response.write(CLOSE_CSS_HTML)#section-heading
+
         if is_add:
             self.__add_responses__(user_object,lab_id,select,correct_answers)
         #if this is a static lab write the topics and practice lab button
