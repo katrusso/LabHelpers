@@ -18,6 +18,18 @@ class LabPage(webapp2.RequestHandler):
         self.num=0
         #starts off the webpage with a form
         
+        self.response.write(OPEN_HTML.substitute(head='''<link type="
+        text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
+            />'''))
+        self.response.write(CSS_CLASS_HTML.substitute(class="header"))
+        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
+        self.response.write(CLOSE_CSS_HTML)#header
+        
+        self.response.write(CSS_CLASS_HTML.substitute(class="sub-heading"))
+        self.response.write('Lab 17: Exam 2 Review <br><br><br>')
+        self.response.write(CLOSE_CSS_HTML)#sub-heading
+
+        
         user_object =self.__check_login__()
         lab_responses=self.__get_responses__(user_object)
         self.__gather_questions__(False)
@@ -32,8 +44,13 @@ class LabPage(webapp2.RequestHandler):
             self.response.write(LINK_HTML.substitute(link="/",
                                                      text="Return to Main Page"))
             return;
+        
+        
+        self.response.write(CSS_CLASS_HTML.substitute(class="question-body"))
+        
         #run through each question creating a multiple choice question for it
         for question in self.question_list:
+            self.response.write(CSS_CLASS_HTML.substitute(class="question"))
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
             self.response.write(question.question)
@@ -46,6 +63,9 @@ class LabPage(webapp2.RequestHandler):
                                                           value=str(i)+ans,
                                                           text=question.choices[i]))
             self.response.write("<br>")
+            self.response.write(CLOSE_CSS_HTML)#question
+
+        self.response.write(CLOSE_CSS_HTML)#question-body
 
         #submit button
         self.response.write(SUBMIT_HTML.substitute(value="Submit"))
