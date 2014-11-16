@@ -22,7 +22,7 @@ class AddTopic(admin.AdminPage):
 
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
-        self.response.write("Enter topic name:")
+        self.response.write("Enter topic name:(do not use spaces)")
         topic_name = self.request.get("t1")
         equations =["","","","",""]
         summary=""
