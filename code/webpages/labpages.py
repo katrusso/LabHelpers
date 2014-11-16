@@ -54,7 +54,7 @@ class LabPage(webapp2.RequestHandler):
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
             self.response.write(question.question)
-            self.response.write("<br>")
+            self.response.write("<br style="color:black">")
             for i in range(len(question.choices)):
                 ans="wrong"
                 if i+1 in question.answers:
