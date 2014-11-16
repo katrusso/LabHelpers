@@ -77,10 +77,6 @@ class LabPage(webapp2.RequestHandler):
     
     #After submission page
     def post(self):
-    
-        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
-        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
-        self.response.write(CLOSE_CSS_HTML)#header
         
         #query for the number of questions
         lab_id = self.__get_labID__()
@@ -162,6 +158,8 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(CLOSE_TABLE_HTML)
         self.response.write(CLOSE_ALIGN_HTML)
 
+
+        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))
         #rewrite each question bolding the correct answer and marking the selected choice
         num=0
         for j in range(len(self.question_list)):
@@ -187,7 +185,9 @@ class LabPage(webapp2.RequestHandler):
                     self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
-            self.response.write(CLOSE_CSS_HTML)#section-heading
+            self.response.write(CLOSE_CSS_HTML)#question
+        self.response.write(CLOSE_CSS_HTML)#question-body
+
 
         if is_add:
             self.__add_responses__(user_object,lab_id,select,correct_answers)
