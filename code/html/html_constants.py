@@ -33,7 +33,7 @@ SUBMIT_HTML=Template('''\
 ''')
 
 RADIO_HTML=Template('''\
-<input type="radio" name="$name" value="$value">$text<br>
+<input type="radio" name="$name" $checked value="$value">$text<br>
 ''')
 
 CHECKBOX_HTML=Template('''\
@@ -41,7 +41,7 @@ CHECKBOX_HTML=Template('''\
 ''')
 
 TEXTBOX_HTML=Template('''\
-<div><textarea name="$name" rows="$row" cols="$col" value="$text"></textarea></div>
+<div><textarea name="$name" rows="$row" cols="$col">$text</textarea></div>
 ''')
 
 TAB_HTML = '''\

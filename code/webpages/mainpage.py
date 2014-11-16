@@ -17,7 +17,9 @@ import meow
 import userpage
 import admin
 import addquestion
+import editquestion
 import addtopic
+import edittopic
 import addlab
 import userclass
 import lab
@@ -92,6 +94,7 @@ class MainPage(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
     def post(self):
         self.redirect(users.create_login_url(self.request.uri))
+
 #List of all pages for the application
 application = webapp2.WSGIApplication([
     ('/', MainPage),
@@ -105,6 +108,9 @@ application = webapp2.WSGIApplication([
     ('/sign', comment.Comment),
     ('/admin', admin.Admin),
     ('/admin/questions', addquestion.AddQuestion),
+    ('/admin/equestions', editquestion.EditQuestion),
     ('/admin/topic', addtopic.AddTopic),
+    ('/admin/etopic', edittopic.EditTopic),
+
     ('/admin/lab', addlab.AddLab),
 ], debug=True)

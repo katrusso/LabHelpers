@@ -30,9 +30,15 @@ class Admin(AdminPage):
         self.response.write(LINK_HTML.substitute(link="/admin/lab",
                                                  text="Add Lab<br>"))
         self.response.write(LINK_HTML.substitute(link="/admin/topic",
-                                                 text="Add Topic<br>"))        
+                                                 text="Add Topic"))
+        self.response.write(TAB_HTML*2)
+        self.response.write(LINK_HTML.substitute(link="/admin/etopic",
+                                                 text="Edit Topic<br>"))        
         self.response.write(LINK_HTML.substitute(link="/admin/questions",
-                                                 text="Add Question<br>"))
+                                                 text="Add Question"))
+        self.response.write(TAB_HTML)
+        self.response.write(LINK_HTML.substitute(link="/admin/equestions",
+                                                 text="Edit Question<br>"))
         self.response.write(CLOSE_HTML)
 
 
