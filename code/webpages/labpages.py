@@ -43,6 +43,7 @@ class LabPage(webapp2.RequestHandler):
                 if i+1 in question.answers:
                     ans="correct"
                 self.response.write(RADIO_HTML.substitute(name="q"+str(self.num),
+                                                          checked="",
                                                           value=str(i)+ans,
                                                           text=question.choices[i]))
             self.response.write("<br>")
