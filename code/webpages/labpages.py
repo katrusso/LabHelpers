@@ -179,7 +179,7 @@ class LabPage(webapp2.RequestHandler):
                     self.response.write(CLOSE_CSS_HTML)#correct
 
                 if select[j]!=i:    #reformat user-selected answer if it doesn't match the correct answer
-                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect")))
+                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))
                     self.response.write(CLOSE_CSS_HTML)#incorrect
 
                 self.response.write(question.choices[i])
