@@ -27,21 +27,29 @@ class LabTopic(webapp2.RequestHandler):
         text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
         
-        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
-        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
-        self.response.write(CLOSE_CSS_HTML)#header
+        write_css_html(self)    #inserts page heading (image + labhelpers)
         
         self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
         self.response.write(<b>topic_name</b>)
-        self.response.write("<br><br>Relavent Equations:<br>")
-        for i in coach_object.equations:
-            self.response.write(i)
-            self.response.write("<br>")
-        self.__print__(coach_object.summary)
-        self.__print__(coach_object.example)
-        self.response.write(LINK_HTML.substitute(link=my_url[0:ind+1],
-                                                 text="Return to Lab"))
-        self.response.write(CLOSE_HTML)
+        self.response.write(CLOSE_CSS_HTML)#sub-heading
+        
+        self.response.write(CSS_CLASS_HTML.substitute(id="coach-body"))
+            self.response.write(CSS_CLASS_HTML.substitute(id="coach-section"))
+
+            self.response.write("<br><br>Relavent Equations:<br>")
+            for i in coach_object.equations:
+                self.response.write(i)
+                self.response.write("<br>")
+            self.__print__(coach_object.summary)
+            self.__print__(coach_object.example)
+            self.response.write(LINK_HTML.substitute(link=my_url[0:ind+1],
+                                                     text="Return to Lab"))
+            self.response.write(CLOSE_HTML)
+        
+            self.response.write(CLOSE_CSS_HTML)#coach-section
+        self.response.write(CLOSE_CSS_HTML)#coach-body
+
         
     def __print__(self,string):
         count=0
