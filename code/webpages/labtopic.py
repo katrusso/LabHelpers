@@ -27,14 +27,8 @@ class LabTopic(webapp2.RequestHandler):
         text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
         
-        write_css_html(self)    #inserts page heading (image + labhelpers)
+        write_css_html(self,"<b>"+topic_name+"</b>")    #inserts page heading (image + labhelpers)
         
-        self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-
-        self.response.write("<b>"+topic_name+"</b>")
-
-        self.response.write(CLOSE_CSS_HTML)#sub-heading
         
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-body"))
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-section"))
