@@ -36,7 +36,7 @@ class LabPage(webapp2.RequestHandler):
         if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
             self.post()
             return
-        self.response.write(OPEN_HTML.substitute(head=""))
+
         self.response.write(FORM_HTML.substitute(action="",method="post"))
 
         if len(self.question_list)==0:
@@ -174,21 +174,20 @@ class LabPage(webapp2.RequestHandler):
             self.response.write("<br>")
             for i in range(len(question.choices)):
                 self.response.write(TAB_HTML)
-                if i+1 in question.answers:
+                if select[j]==i and i+1 in question.answers:
                     self.response.write(CSS_CLASS_HTML.substitute(id="correct"))      #correct
-                    self.response.write(CLOSE_CSS_HTML)#correct
+                 #   self.response.write(CLOSE_CSS_HTML)#correct
 
-                if select[j]!=i:    #reformat user-selected answer if it doesn't match the correct answer
-                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect")))
-                    self.response.write(CLOSE_CSS_HTML)#incorrect
-
+                elif select[j]==i:    #reformat user-selected answer if it doesn't match the correct answer
+                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))
+                #    self.response.write(CLOSE_CSS_HTML)#incorrect
+                elif i+1 in question.answers:
+                    self.response.write("<b>")
                 self.response.write(question.choices[i])
-                '''
-                if select[j]!=i:
+                if select[j]==i:
                     self.response.write(CLOSE_CSS_HTML)#incorrect
-                if i+1 in question.answers:
-                    self.response.write(CLOSE_CSS_HTML)#correct
-                '''
+                elif i+1 in question.answers:
+                    self.response.write("</b>")
                 self.response.write("<br>")
             self.response.write("<br>")
             self.response.write(CLOSE_CSS_HTML)#question
