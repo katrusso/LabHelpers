@@ -31,27 +31,33 @@ from html_constants import *
 #main page that is initially run
 class MainPage(webapp2.RequestHandler):
     def get(self):
-    
-#        bugsnag.configure(
-#            api_key = "780ff3a44e2fb9798e2319078059b5a1", #generated at bugsnag#.com
-#            project_root = "./",    #path/to/your/app
-#        )
-
+        """
+        This method prompts the user to log in via gmail authentication, then loads the 
+        main page, including the associated style sheet. 
         
+        If the user doesn't have an account, they will be prompted to create one.
+        
+        Next, navigation links are listed, followed by a section dedicated to labs 
+        associated with that particular user.
+         
+        """
         username = users.get_current_user()
         if username:
             user_object = userclass.sign_in(self,username.nickname())
-            #include the css sheets and open the html
-            self.response.write(OPEN_HTML.substitute(head='''<link type="
+            
+            #homepage stylesheet
+            self.response.write(OPEN_HTML.substitute(head='''<link type="   
             text/css" rel="stylesheet" href="/stylesheets/home.css" 
                 />'''))
             
+            #header
             self.response.write(CSS_HTML.substitute(id="header"))
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<h1>LabHelpers</h1>")
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#header
 
+            #navigation links
             self.response.write(CSS_HTML.substitute(id="nav"))
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
@@ -66,6 +72,7 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#nav
 
+            #lab links
             self.response.write(CSS_HTML.substitute(id="content"))
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
@@ -80,6 +87,7 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#content
             
+            #footer / content sources
             self.response.write(CSS_HTML.substitute(id="footer"))
             self.response.write("<br>")
             self.response.write(TAB_HTML)
