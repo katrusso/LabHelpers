@@ -2,12 +2,12 @@ h1{
 	display: inline;
 	color: #black;
 	letter-spacing: 1px;
-	background-color: #white;
-	padding-left: 15px;
 	text-align: left;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 16;
 	font-weight: bold;
+	background-color: #white;
+	padding-left: 15px;
 	padding-bottom: 3px;
 }
 
@@ -78,7 +78,9 @@ h2{
 .incorrect{
     color: red;
 }
-
+.answer{
+    font-weight:bold;
+}
 
 .section-heading{
 	display: inline;

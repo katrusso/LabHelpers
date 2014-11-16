@@ -171,7 +171,7 @@ class LabPage(webapp2.RequestHandler):
             self.response.write(question.question)
             self.response.write("<br>")
             for i in range(len(question.choices)):
-                self.response.write(TAB_HTML)
+
 
                 if select[j]==i and i+1 in question.answers:
                     self.response.write(CSS_CLASS_HTML.substitute(id="correct"))      #correct
@@ -179,13 +179,14 @@ class LabPage(webapp2.RequestHandler):
                 elif select[j]==i:    #reformat user-selected answer if it doesn't match the correct answer
                     self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))
                 elif i+1 in question.answers:
-                    self.response.write("<b>")
+                    self.response.write(CSS_CLASS_HTML.substitute(id="answer"))
+                self.response.write(TAB_HTML)
                 self.response.write(question.choices[i])
-                if select[j]==i:
-                    self.response.write(CLOSE_CSS_HTML)#incorrect
-                elif i+1 in question.answers:
-                    self.response.write("</b>")
                 self.response.write("<br>")
+                if select[j]==i or i+1 in question.answers:
+                    self.response.write(CLOSE_CSS_HTML)
+
+
             self.response.write("<br>")
             self.response.write(CLOSE_CSS_HTML)#question
         self.response.write(CLOSE_CSS_HTML)#question-body
