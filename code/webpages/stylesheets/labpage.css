@@ -48,8 +48,6 @@ h2{
 }
 
 
-
-
 .question-body{		
 	padding: 30px;
 	float: left;
@@ -71,6 +69,30 @@ h2{
 	color: #278998;
 	padding-bottom: 15;	
 }
+
+.correct{
+    color: green;
+    font-weight: bold;
+}
+
+.incorrect{
+    color: red;
+}
+
+
+.section-heading{
+	display: inline;
+	color: #black;
+	letter-spacing: 1px;
+	background-color: #white;
+	padding-left: 15px;
+	text-align: left;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 16;
+	font-weight: bold;
+	padding-bottom: 3px;
+}
+
 
 .doc-image{
 	display: inline;
