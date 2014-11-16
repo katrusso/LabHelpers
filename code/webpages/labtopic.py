@@ -22,8 +22,17 @@ class LabTopic(webapp2.RequestHandler):
         if len(coach_list)==0:
             return;
         coach_object = coach_query.fetch()[0]
+        
+        self.response.write(OPEN_HTML.substitute(head='''<link type="
+        text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
+            />'''))
+        
+        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
+        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
+        self.response.write(CLOSE_CSS_HTML)#header
+        
         self.response.write(OPEN_HTML.substitute(head=""))
-        self.response.write(topic_name)
+        self.response.write(<b>topic_name</b>)
         self.response.write("<br><br>Relavent Equations:<br>")
         for i in coach_object.equations:
             self.response.write(i)
