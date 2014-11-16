@@ -18,17 +18,6 @@ class LabPage(webapp2.RequestHandler):
         self.num=0
         #starts off the webpage with a form
         
-        self.response.write(OPEN_HTML.substitute(head='''<link type="
-        text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
-            />'''))
-        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
-        self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
-        self.response.write(CLOSE_CSS_HTML)#header
-        
-        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-        self.response.write('Lab 17: Exam 2 Review <br><br><br>')
-        self.response.write(CLOSE_CSS_HTML)#sub-heading
-
         
         user_object =self.__check_login__()
         lab_responses=self.__get_responses__(user_object)
@@ -36,7 +25,10 @@ class LabPage(webapp2.RequestHandler):
         if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
             self.post()
             return
-
+        self.response.write(OPEN_HTML.substitute(head='''<link type="
+            text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
+            />'''))
+        write_css_html(self)
         self.response.write(FORM_HTML.substitute(action="",method="post"))
 
         if len(self.question_list)==0:
@@ -54,7 +46,7 @@ class LabPage(webapp2.RequestHandler):
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
             self.response.write(question.question)
-            #self.response.write("<br style="color:black">")
+            self.response.write('''<br style="color:black">''')
             for i in range(len(question.choices)):
                 ans="wrong"
                 if i+1 in question.answers:
@@ -77,7 +69,10 @@ class LabPage(webapp2.RequestHandler):
     
     #After submission page
     def post(self):
-        
+        self.response.write(OPEN_HTML.substitute(head='''<link type="
+            text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
+            />'''))
+        write_css_html(self)
         #query for the number of questions
         lab_id = self.__get_labID__()
         user_object =self.__check_login__()
