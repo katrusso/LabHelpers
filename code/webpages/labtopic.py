@@ -31,7 +31,7 @@ class LabTopic(webapp2.RequestHandler):
         
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
-        self.response.write(<b>topic_name</b>)
+        self.response.write(topic_name)
         self.response.write(CLOSE_CSS_HTML)#sub-heading
         
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-body"))
