@@ -21,11 +21,11 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(OPEN_HTML.substitute(head='''<link type="
         text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
             />'''))
-        self.response.write(CSS_CLASS_HTML.substitute(class="header"))
+        self.response.write(CSS_CLASS_HTML.substitute(id="header"))
         self.response.write('<h1> <img src="stylesheets/emc24.png" alt="E=mc^2 image" width="40px" height="25px"> Lab Helpers </h1>')
         self.response.write(CLOSE_CSS_HTML)#header
         
-        self.response.write(CSS_CLASS_HTML.substitute(class="sub-heading"))
+        self.response.write(CSS_CLASS_HTML.substitute(id="sub-heading"))
         self.response.write('Lab 17: Exam 2 Review <br><br><br>')
         self.response.write(CLOSE_CSS_HTML)#sub-heading
 
@@ -46,11 +46,11 @@ class LabPage(webapp2.RequestHandler):
             return;
         
         
-        self.response.write(CSS_CLASS_HTML.substitute(class="question-body"))
+        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))
         
         #run through each question creating a multiple choice question for it
         for question in self.question_list:
-            self.response.write(CSS_CLASS_HTML.substitute(class="question"))
+            self.response.write(CSS_CLASS_HTML.substitute(id="question"))
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
             self.response.write(question.question)
