@@ -33,7 +33,7 @@ class LabTopic(webapp2.RequestHandler):
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-body"))
         self.response.write(CSS_CLASS_HTML.substitute(id="coach-section"))
 
-        self.response.write("<br><br>Relavent Equations:<br>")
+        self.response.write("<br><br>Relevent Equations:<br>")
         for i in coach_object.equations:
             self.response.write(i)
             self.response.write("<br>")
