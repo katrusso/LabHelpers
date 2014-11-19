@@ -12,6 +12,10 @@ from html_constants import *
 MAX_CHARACTERS = 80
 
 class LabTopic(webapp2.RequestHandler):
+    '''
+    This class 
+    '''
+    
     def get(self):
         my_url = self.request.uri
         ind = my_url.rfind('/')
@@ -24,7 +28,7 @@ class LabTopic(webapp2.RequestHandler):
         coach_object = coach_query.fetch()[0]
         
         self.response.write(OPEN_HTML.substitute(head='''<link type="
-        text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
+        text/css" rel="stylesheet" href="/stylesheets/labtopic.css" 
             />'''))
         
         write_css_html(self,"<b>"+topic_name+"</b>")    #inserts page heading (image + labhelpers)
