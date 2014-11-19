@@ -6,7 +6,7 @@ import webapp2
 from html_constants import *
 
 
-class MeowPage(webapp2.RequestHandler):
+class MeowPage(webapp2.RequestHandler):     #EMBEDS YOUTUBE VIDEO
     def get(self):
         self.response.write(MEOW_PAGE_HTML)
         self.response.write(ALIGN_HTML.substitute(align="center"))
