@@ -14,15 +14,15 @@ class LabPage(webapp2.RequestHandler):
      
     def get(self):                                                                  #POPULATES LAB DATA
         '''
-        This method populates the user-selected lab (selected via homepage lab-link) with 
-        its respective contents. If the user completed the lab during a previous visit to
-        the site, his or her answers are saved, and therefore the correct 
-        (post-submission) lab version appears. 
+        THIS METHOD POPULATES THE USER-SELECTED LAB (SELECTED VIA HOMEPAGE LAB-LINK) WITH 
+        ITS RESPECTIVE CONTENTS. IF THE USER COMPLETED THE LAB DURING A PREVIOUS VISIT TO
+        THE SITE, HIS OR HER ANSWERS ARE SAVED, AND THEREFORE THE CORRECT 
+        (POST-SUBMISSION) LAB VERSION APPEARS. 
 
-        If the lab has not been completed, its questions and multiple choice options
-        are displayed in a form for the user.
+        IF THE LAB HAS NOT BEEN COMPLETED, ITS QUESTIONS AND MULTIPLE CHOICE OPTIONS
+        ARE DISPLAYED IN A FORM FOR THE USER.
 
-        The page style is determined by its associated style sheet.
+        THE PAGE STYLE IS DETERMINED BY ITS ASSOCIATED STYLE SHEET.
         '''          
         self.response.write(OPEN_HTML.substitute(head='''<link 
          rel="stylesheet" href="/stylesheets/labpage.css" />'''))                   #STYLESHEET - MAIN

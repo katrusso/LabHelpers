@@ -4,29 +4,28 @@ import cgi
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import webapp2
-
-import coach
-from html_constants import *
+import webapp2                                                                      #FRAMEWORK
+import coach                                                                        #RELEVANT CLASS
+from html_constants import *                                                        #REDUCES CODE REDUNDANCY ACROSS FILES
 
 MAX_CHARACTERS = 80
 
 class LabTopic(webapp2.RequestHandler):
     '''
-    As seen in labpages.py, after the user submits their completed lab a small dashboard
-    of their grades per section appears at the top of the corrected lab. 
+    AS SEEN IN LABPAGES.PY, AFTER THE USER SUBMITS THEIR COMPLETED LAB A SMALL DASHBOARD
+    OF THEIR GRADES PER SECTION APPEARS AT THE TOP OF THE CORRECTED LAB. 
     
-    Within the dashboard is a tabular list of topics; they are clickable links.
-    Below them the user's grade for questions associated with that topic.
+    WITHIN THE DASHBOARD IS A TABULAR LIST OF TOPICS; THEY ARE CLICKABLE LINKS.
+    BELOW THEM THE USER'S GRADE FOR QUESTIONS ASSOCIATED WITH THAT TOPIC.
     
-    The purpose of this class is to open the "coach data" webpage in the same tab when a 
-    user clicks on a topic-link in the grade-dashboard of their corrected lab. 
+    THE PURPOSE OF THIS CLASS IS TO OPEN THE "COACH DATA" WEBPAGE IN THE SAME TAB WHEN A 
+    USER CLICKS ON A TOPIC-LINK IN THE GRADE-DASHBOARD OF THEIR CORRECTED LAB. 
     
-    The coach data contains the topic name, relevant formulas, an explanation of the 
-    topic's fundamental concepts, and an example. 
+    THE COACH DATA CONTAINS THE TOPIC NAME, RELEVANT FORMULAS, AN EXPLANATION OF THE 
+    TOPIC'S FUNDAMENTAL CONCEPTS, AND AN EXAMPLE. 
     
-    The intention here being to help the student recognize the source of their errors 
-    without requiring additional resources. 
+    THE INTENTION HERE BEING TO HELP THE STUDENT RECOGNIZE THE SOURCE OF THEIR ERRORS 
+    WITHOUT REQUIRING ADDITIONAL RESOURCES. 
     '''
     
     def get(self):                                                                  #FETCH COACH DATA ASSOCIATED WITH TOPIC LINK
