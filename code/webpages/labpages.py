@@ -10,87 +10,105 @@ import questions
 import userclass
 from html_constants import *
 
-#Skeleton of the algorithm for showing a lab
 class LabPage(webapp2.RequestHandler):
-            
-    #print all of the information for the lab
-    def get(self):
-        self.num=0
-        #starts off the webpage with a form
-                
-        user_object =self.__check_login__()
-        lab_responses=self.__get_responses__(user_object)
-        self.__gather_questions__(False)
-        if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
-            self.post()
-            return
+     
+     
+    def get(self):                                                                  #POPULATES LAB DATA
+        '''
+        This method populates the user-selected lab (selected via homepage lab-link) with 
+        its respective contents. If the user completed the lab during a previous visit to
+        the site, his or her answers are saved, and therefore the correct 
+        (post-submission) lab version appears. 
 
+        If the lab has not been completed, its questions and multiple choice options
+        are displayed in a form for the user.
 
-        self.response.write(OPEN_HTML.substitute(head='''<link type="
-            text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
-            />'''))
+        The page style is determined by its associated style sheet.
+        '''          
+        self.response.write(OPEN_HTML.substitute(head='''<link 
+         rel="stylesheet" href="/stylesheets/labpage.css" />'''))                   #STYLESHEET - MAIN
+        
         self.__write_header__()
-        self.response.write(FORM_HTML.substitute(action="",method="post"))
 
-        if len(self.question_list)==0:
+        self.response.write(FORM_HTML.substitute(action="",method="post"))          #CREATE HTML FORM
+        
+        self.num=0                                                                      
+        user_object =self.__check_login__()                                         #RETRIEVE USER 
+        lab_responses=self.__get_responses__(user_object)                           #RETRIEVE USER DATA ASSOCIATED WITH THIS LAB
+        self.__gather_questions__(False)
+        
+        
+        if len(lab_responses)!=0 and len(lab_responses[0].responses)==len(self.question_list):
+            self.post()                                                             #FOR LAB COMPLETED PRIOR, DISPLAY USER'S CORRECTED-LAB
+            return
+        if len(self.question_list)==0:                                              
             self.response.write("Sorry no questions to display<br>")
             self.response.write(LINK_HTML.substitute(link="/",
                                 text="Return to Main Page"))
             return;
         
         
-        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))
-        
-        #run through each question creating a multiple choice question for it
+        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))           #STYLESHEET CLASS - OPEN TAG :: QUESTION-BODY
         for question in self.question_list:
-            self.response.write(CSS_CLASS_HTML.substitute(id="question"))
+            self.response.write(CSS_CLASS_HTML.substitute(id="question"))            #STYLESHEET CLASS - OPEN TAG :: QUESTION
             self.num=self.num+1
             self.response.write(str(self.num)+". ")
-            self.response.write(question.question)
+            self.response.write(question.question)                                   #FOR LAB NOT COMPLETED PRIOR, DISPLAY MULTIPLE CHOICE QUESTIONS/CHOICES
             self.response.write('''<br style="color:black">''')
             for i in range(len(question.choices)):
                 ans="wrong"
                 if i+1 in question.answers:
                     ans="correct"
-                self.response.write(RADIO_HTML.substitute(name="q"+str(self.num),
+                self.response.write(RADIO_HTML.substitute(name="q"+str(self.num),   
                                                           checked="",
                                                           value=str(i)+ans,
-                                                          text=question.choices[i]))
+                                                          text=question.choices[i])) 
             self.response.write("<br>")
-            self.response.write(CLOSE_CSS_HTML)#question
+            self.response.write(CLOSE_CSS_HTML)                                     #STYLESHEET CLASS - CLOSING TAG :: QUESTION
+        self.response.write(CLOSE_CSS_HTML)                                         #STYLESHEET CLASS - CLOSING TAG :: QUESTION-BODY
+        self.response.write(SUBMIT_HTML.substitute(value="Submit"))                 #SUBMIT BUTTON
 
-        self.response.write(CLOSE_CSS_HTML)#question-body
 
-        #submit button
-        self.response.write(SUBMIT_HTML.substitute(value="Submit"))
-
-        #end of page
-        self.response.write(CLOSE_FORM_HTML)
-        self.response.write(CLOSE_HTML)
+        self.response.write(CLOSE_FORM_HTML)                                        #END OF FORM
+        self.response.write(CLOSE_HTML)                                             #END OF PAGE
     
-    #After submission page
-    def post(self):
-        self.response.write(OPEN_HTML.substitute(head='''<link type="
-            text/css" rel="stylesheet" href="/stylesheets/labpage.css" 
-            />'''))
-        lab_name = self.__get_lab_name__()
-        self.__write_header__()
+    
+    
+   
+    def post(self):                                                                 #POPULATES CORRECTED LAB AFTER USER SUBMISSION
+        '''
+        This method populates the corrected lab data after the user hits the "Submit" 
+        button in the above def get(self) method. 
+        
+        The student can then scroll 
+        to the bottom of the page and click a button to generate custom practice problems 
+        based on areas of difficulty.
+        
 
-        #query for the number of questions
+        
+        The page style is determined by its associated style sheet.
+
+        '''                                                                 
+        self.response.write(OPEN_HTML.substitute(head='''<link                  
+        rel="stylesheet" href="/stylesheets/labpage.css" />'''))                    #STYLESHEET - MAIN
+        
+        self.__write_header__()
+        
+        lab_name = self.__get_lab_name__()                                          
         lab_id = self.__get_labID__()
-        user_object =self.__check_login__()
-        self.__gather_questions__(True)
+        user_object =self.__check_login__()                                         #RETRIEVE USER
+        self.__gather_questions__(True)                                             #RETRIEVE QUESTIONS
         topics = []
         totals = []
         select = []
         correct = []
         correct_answers=[]
         is_add=True
-        lab_responses = self.__get_responses__(user_object)
-        #checks if each answer is correct or wrong
+        
+        lab_responses = self.__get_responses__(user_object)                         #RETRIEVE USER RESPONSES
         if len(lab_responses)==0 or len(lab_responses[0].responses)<len(self.question_list):
-            for i in range(len(self.question_list)):
-                j=0
+            for i in range(len(self.question_list)):                                #CHECK TO SEE IF USER RESPONSES ARE CORRECT
+                j=0                                                                 #APPEND CORRECT ANSWERS TO DATA STRUCTURE FOR GRADING PURPOSES
                 for j in range(len(topics)+1):
                     if j==len(topics) or topics[j]==self.question_list[i].topic:
                         break
@@ -129,13 +147,13 @@ class LabPage(webapp2.RequestHandler):
                 if lab_responses[0].correct[i]:
                     correct[j]=correct[j]+1
                 
-        #Print the results of the lab
-        num_correct=0
+      
+        num_correct=0                                                           #PRINT THE GRADING RESULTS IN A DASHBOARD AT THE TOP OF THE CORRECTED LAB
         self.response.write(ALIGN_HTML.substitute(align="center"))
-        if lab_id==4444:
-            self.response.write("<b><ins> Practice lab results </ins></b><br>")
+        if lab_id==4444:                                                        #LAB_ID 4444 REFERS TO CUSTOM-GENERATED ("DYNAMIC") LAB -- AKA CUSTOM PRACTICE PROBLEMS
+            self.response.write("<b><ins> Practice Lab Results </ins></b><br>")
         else:
-            self.response.write("<b><ins>Lab "+str(lab_id)+" results</ins></b><br>")
+            self.response.write("<b><ins>Lab "+str(lab_id)+" Results</ins></b><br>")
         self.response.write(OPEN_TABLE_HTML.substitute(percent=50))
         self.response.write("<tr>")
         
@@ -143,7 +161,7 @@ class LabPage(webapp2.RequestHandler):
         for i in topics:
             self.response.write(TABLE_COLUMN_HTML.substitute(
                 text=LINK_HTML.substitute(link=i, text=i)))
-        self.response.write(TABLE_COLUMN_HTML.substitute(text="total"))
+        self.response.write(TABLE_COLUMN_HTML.substitute(text="Total"))
         self.response.write("</tr>")
         self.response.write("<tr>")
         for i in range(len(topics)):
@@ -157,14 +175,14 @@ class LabPage(webapp2.RequestHandler):
         self.response.write(CLOSE_ALIGN_HTML)
 
 
-        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))
+        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))           #STYLESHEET CLASS
         #rewrite each question bolding the correct answer and marking the selected choice
         num=0
         for j in range(len(self.question_list)):
-            self.response.write(CSS_CLASS_HTML.substitute(id="question"))
+            self.response.write(CSS_CLASS_HTML.substitute(id="question"))            #STYLESHEET CLASS
             question = self.question_list[j]
             num=num+1
-            self.response.write(CSS_CLASS_HTML.substitute(id="section-heading"))
+            self.response.write(CSS_CLASS_HTML.substitute(id="section-heading"))     #STYLESHEET CLASS
             self.response.write(question.topic+"<br>")
             self.response.write(CLOSE_CSS_HTML)#section-heading
             self.response.write(str(num)+". ")
@@ -174,9 +192,9 @@ class LabPage(webapp2.RequestHandler):
 
 
                 if select[j]==i and i+1 in question.answers:
-                    self.response.write(CSS_CLASS_HTML.substitute(id="correct"))      #correct
+                    self.response.write(CSS_CLASS_HTML.substitute(id="correct"))      #CORRECT 
 
-                elif select[j]==i:    #reformat user-selected answer if it doesn't match the correct answer
+                elif select[j]==i:                                                    #REFORMAT USER-SELECTED ANSWER IF IT DOESN'T MATCH THE CORRECT ANSWER
                     self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))
                 elif i+1 in question.answers:
                     self.response.write(CSS_CLASS_HTML.substitute(id="answer"))
