@@ -4,11 +4,10 @@ import cgi
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import webapp2
-
-import questions
-import userclass
-from html_constants import *
+import webapp2                                                                      #FRAMEWORK
+import questions                                                                    #RELEVANT CLASS
+import userclass                                                                    #RELEVANT CLASS
+from html_constants import *                                                        #REDUCES CODE REDUNDANCY ACROSS FILES
 
 class LabPage(webapp2.RequestHandler):
      
@@ -148,9 +147,9 @@ class LabPage(webapp2.RequestHandler):
                     correct[j]=correct[j]+1
                 
       
-        num_correct=0                                                           #PRINT THE GRADING RESULTS IN A DASHBOARD AT THE TOP OF THE CORRECTED LAB
+        num_correct=0                                                               #PRINT THE GRADING RESULTS IN A DASHBOARD AT THE TOP OF THE CORRECTED LAB
         self.response.write(ALIGN_HTML.substitute(align="center"))
-        if lab_id==4444:                                                        #LAB_ID 4444 REFERS TO CUSTOM-GENERATED ("DYNAMIC") LAB -- AKA CUSTOM PRACTICE PROBLEMS
+        if lab_id==4444:                                                            #LAB_ID 4444 REFERS TO CUSTOM-GENERATED ("DYNAMIC") LAB -- AKA CUSTOM PRACTICE PROBLEMS
             self.response.write("<b><ins> Practice Lab Results </ins></b><br>")
         else:
             self.response.write("<b><ins>Lab "+str(lab_id)+" Results</ins></b><br>")
@@ -158,76 +157,69 @@ class LabPage(webapp2.RequestHandler):
         self.response.write("<tr>")
         
         
-        for i in topics:
+        for i in topics:                                                            #USER IS GRADED BY TOPIC; HELPS PINPOINT PROBLEM AREAS AND CONCENTRATE PRACTICE PROBLEMS THERE
             self.response.write(TABLE_COLUMN_HTML.substitute(
-                text=LINK_HTML.substitute(link=i, text=i)))
-        self.response.write(TABLE_COLUMN_HTML.substitute(text="Total"))
+                text=LINK_HTML.substitute(link=i, text=i)))                         #DASHBOARD IS DISPLAYED IN TABLE FORMAT
+        self.response.write(TABLE_COLUMN_HTML.substitute(text="Total")) 
         self.response.write("</tr>")
         self.response.write("<tr>")
         for i in range(len(topics)):
-            temp_val = correct[i]*100.0/totals[i]
+            temp_val = correct[i]*100.0/totals[i]                                   #GRADE CALCULATED: NUM CORRECT IN SECTION/ TOTAL QUESTIONS IN SECTION   (AGAIN, GRADES ARE BROKEN DOWN BY TOPIC)
             num_correct = num_correct + correct[i]
             self.response.write(TABLE_COLUMN_HTML.substitute(
                 text = str("{:10.2f}".format(temp_val))+"%"))
         self.response.write(TABLE_COLUMN_HTML.substitute(text = str("{:10.2f}".format(num_correct*100.0/len(self.question_list)))+"%"))
         self.response.write("</tr>")
         self.response.write(CLOSE_TABLE_HTML)
-        self.response.write(CLOSE_ALIGN_HTML)
+        self.response.write(CLOSE_ALIGN_HTML)                                       #END OF GRADING DASHBOARD TABLE
 
 
-        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))           #STYLESHEET CLASS
-        #rewrite each question bolding the correct answer and marking the selected choice
+        self.response.write(CSS_CLASS_HTML.substitute(id="question-body"))          #STYLESHEET CLASS - OPEN TAG :: QUESTION-BODY
         num=0
-        for j in range(len(self.question_list)):
-            self.response.write(CSS_CLASS_HTML.substitute(id="question"))            #STYLESHEET CLASS
+        for j in range(len(self.question_list)):                                    #POPULATES CORRECTED LAB WITH ORIGINAL QUESTIONS, (REFORMATTED) USER RESPONSES AND CORRECT ANSWERS (FOR VISUAL EMPHASIS)
+            self.response.write(CSS_CLASS_HTML.substitute(id="question"))           #STYLESHEET CLASS - OPEN TAG :: QUESTION
             question = self.question_list[j]
             num=num+1
-            self.response.write(CSS_CLASS_HTML.substitute(id="section-heading"))     #STYLESHEET CLASS
+            self.response.write(CSS_CLASS_HTML.substitute(id="section-heading"))    #STYLESHEET CLASS - OPEN TAG :: SECTION-HEADING
             self.response.write(question.topic+"<br>")
-            self.response.write(CLOSE_CSS_HTML)#section-heading
+            self.response.write(CLOSE_CSS_HTML)                                     #STYLESHEET CLASS - CLOSING TAG :: SECTION-HEADING                                     
             self.response.write(str(num)+". ")
             self.response.write(question.question)
             self.response.write("<br>")
             for i in range(len(question.choices)):
-
-
                 if select[j]==i and i+1 in question.answers:
-                    self.response.write(CSS_CLASS_HTML.substitute(id="correct"))      #CORRECT 
-
-                elif select[j]==i:                                                    #REFORMAT USER-SELECTED ANSWER IF IT DOESN'T MATCH THE CORRECT ANSWER
-                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))
+                    self.response.write(CSS_CLASS_HTML.substitute(id="correct"))    #STYLESHEET CLASS - OPEN TAG :: CORRECT (IF STMT)      
+                elif select[j]==i:                                                  #REFORMAT USER-SELECTED ANSWER IF IT DOESN'T MATCH THE CORRECT ANSWER
+                    self.response.write(CSS_CLASS_HTML.substitute(id="incorrect"))  #STYLESHEET CLASS - OPEN TAG :: INCORRECT (IF STMT)  
                 elif i+1 in question.answers:
-                    self.response.write(CSS_CLASS_HTML.substitute(id="answer"))
+                    self.response.write(CSS_CLASS_HTML.substitute(id="answer"))     #STYLESHEET CLASS - OPEN TAG :: ANSWER (IF STMT)
                 self.response.write(TAB_HTML)
                 self.response.write(question.choices[i])
                 self.response.write("<br>")
                 if select[j]==i or i+1 in question.answers:
-                    self.response.write(CLOSE_CSS_HTML)
-
-
+                    self.response.write(CLOSE_CSS_HTML)                             #STYLESHEET CLASS - CLOSING TAG :: CORRECT OR INCORRECT OR ANSWER (IF STMT)
             self.response.write("<br>")
-            self.response.write(CLOSE_CSS_HTML)#question
-        self.response.write(CLOSE_CSS_HTML)#question-body
+            self.response.write(CLOSE_CSS_HTML)                                     #STYLESHEET CLASS - CLOSING TAG :: QUESTION
+        self.response.write(CLOSE_CSS_HTML)                                         #STYLESHEET CLASS - CLOSING TAG :: QUESTION-BODY
 
 
-        if is_add:
+        if is_add:                                                                  #STATIC LAB: SAVE DATA; GENERATE CORRECTED LAB 
             self.__add_responses__(user_object,lab_id,select,correct_answers)
-        #if this is a static lab write the topics and practice lab button
+                                                        
         if lab_id!=4444:
-            self.response.write(FORM_HTML.substitute(action="/DynamicLab/"
+            self.response.write(FORM_HTML.substitute(action="/DynamicLab/"          #DYNAMIC LAB: AT BOTTOM OF CORRECTED LAB, CREATE FORM CONTAINING CHECKLIST OF TOPICS SUGGESTED FOR CUSTOM PROBLEM SET BASED ON USER WEAKNESSES
                                                      +str(lab_id)+"/",
                                                      method="link"))
             for i in range(len(topics)):
                 isCheck=""
-                if correct[i]*100.0/totals[i]<50:
+                if correct[i]*100.0/totals[i]<50:                                   #IF USER SCORES <50% IN A TOPIC, CUSTOM PROBLEMS ARE SUGGESTED FOR THAT TOPIC
                     isCheck="checked"
-                self.response.write(CHECKBOX_HTML.substitute(name="topics",
+                self.response.write(CHECKBOX_HTML.substitute(name="topics",         #USER CAN OPT OUT OF TOPICS IN CUSTOM PROB SET BY UNCHECKING RESPECTIVE BOX
                                                              checked=isCheck,
                                                              value=topics[i],
                                                              text=topics[i]))
             self.response.write(SUBMIT_HTML.substitute(value="Get Practice Problems"))
             self.response.write(CLOSE_FORM_HTML)
-        #otherwise write button to the main page
         else:
             self.response.write(FORM_HTML.substitute(action="/",method="link"))
             self.response.write(SUBMIT_HTML.substitute(value="Return to main page"))
