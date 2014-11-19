@@ -4,12 +4,10 @@ import urllib
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import webapp2
-
-#import bugsnag
-
-#Other webpage files
-import comment
+import webapp2                                                                  #FRAMEWORK
+#import bugsnag                                                                 #BUG TRACKING SOFTWARE
+                                                                                
+import comment                                                                  #RELEVANT MODELS
 import static
 import dynamic
 import labtopic
@@ -32,13 +30,13 @@ from html_constants import *
 class MainPage(webapp2.RequestHandler):
     def get(self):
         """
-        This method prompts the user to log in via gmail authentication, then loads the 
-        main page, including the associated style sheet. 
+        THIS METHOD PROMPTS THE USER TO LOG IN VIA GMAIL AUTHENTICATION, THEN LOADS THE 
+        MAIN PAGE, INCLUDING THE ASSOCIATED STYLE SHEET. 
         
-        If the user doesn't have an account, they will be prompted to create one.
+        IF THE USER DOESN'T HAVE AN ACCOUNT, THEY WILL BE PROMPTED TO CREATE ONE.
         
-        Next, navigation links are listed, followed by a section dedicated to labs 
-        associated with that particular user.
+        NEXT, NAVIGATION LINKS ARE LISTED, FOLLOWED BY A SECTION DEDICATED TO LABS 
+        ASSOCIATED WITH THAT PARTICULAR USER.
          
         """
         username = users.get_current_user()
