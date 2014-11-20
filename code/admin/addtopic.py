@@ -12,14 +12,24 @@ import topic
 import coach
 import admin
 
-#interface for the topic adding (works the same way as the question one
+
 class AddTopic(admin.AdminPage):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO ADD A TOPIC AND ITS 
+    RESPECTIVE ATTRIBUTES TO THE DATASTORE (AND BY EXTENSION, THE WEBSITE)
+    
+    TOPIC ATTRIBUTES:
+        - TOPIC NAME
+        - RELATED EQUATIONS
+        - COACH DATA (TOPIC EXPLANATION)
+        - EXAMPLE 
+    '''
     def __write_link_to_admin__(self):
         self.response.write(LINK_HTML.substitute(link="/admin",
                                                  text="Return to Admin Page"))
         self.response.write("<br>")
-    def __write_html__(self):
-
+    
+    def __write_html__(self):                                                       #FORM FOR RETRIEVING TOPIC DATA FROM ADMIN USER
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
         self.response.write("Enter topic name:(do not use spaces)")
@@ -59,7 +69,9 @@ class AddTopic(admin.AdminPage):
         self.response.write(SUBMIT_HTML.substitute(value="Add topic"))
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
-    def post(self):
+    
+    
+    def post(self):                                                                 #PUSHES TOPIC DATA INTO THE DATASTORE AND RELOADS THE WEB PAGE
         topic_name=self.request.get('topic')
         topic_query = topic.Topic.query(ancestor=topic.topic_key(1))
         topic_list = topic_query.fetch()

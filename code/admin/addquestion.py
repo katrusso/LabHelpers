@@ -12,14 +12,25 @@ import topic
 import lab
 import admin
 
-#webpage to add a question
+
 class AddQuestion(admin.AdminPage):
-    #prints all of the different inputs
-    def __write_link_to_admin__(self):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO ADD A QUESTION AND ITS 
+    RESPECTIVE ATTRIBUTES TO THE DATASTORE (AND BY EXTENSION, THE WEBSITE)
+    
+    QUESTION ATTRIBUTES:
+        - ASSOCIATED LAB ID
+        - ASSOCIATED TOPIC 
+        - QUESTION NUMBER
+        - QUESTION TEXT
+        - MULTIPLE CHOICE OPTIONS  
+    '''
+    def __write_link_to_admin__(self):              
         self.response.write(LINK_HTML.substitute(link="/admin",
                                                  text="Return to Admin Page"))
         self.response.write("<br>")
-    def __write_html__(self):
+    
+    def __write_html__(self):                                                       #FORM FOR RETRIEVING QUESTION DATA FROM ADMIN USER
         lab_id = self.request.get("labid")
         if lab_id!="":
             lab_id=int(lab_id)
@@ -98,8 +109,8 @@ class AddQuestion(admin.AdminPage):
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
 
-    #pushes question into the datastore and reload the web page
-    def post(self):
+    
+    def post(self):                                                                 #PUSHES QUESTION DATA INTO THE DATASTORE AND RELOADS THE WEB PAGE
         lab_id = int(self.request.get('labid'))
         number = int(self.request.get('number'))
         topic_name = self.request.get('topic')

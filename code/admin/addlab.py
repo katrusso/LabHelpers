@@ -9,12 +9,17 @@ from html_constants import *
 import lab
 import admin
 
-#interface for the topic adding (works the same way as the question one
+
 class AddLab(admin.AdminPage):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO ADD A LAB AND ITS 
+    RESPECTIVE ATTRIBUTES (ID, NAME) TO THE DATASTORE (AND BY EXTENSION, THE WEBSITE)
+    '''
     def __write_link_to_admin__(self):
         self.response.write(LINK_HTML.substitute(link="/admin",
                                                  text="Return to Admin Page"))
         self.response.write("<br>")
+    
     def __write_html__(self):
 
         self.response.write(OPEN_HTML.substitute(head=""))
@@ -32,6 +37,7 @@ class AddLab(admin.AdminPage):
         self.response.write(SUBMIT_HTML.substitute(value="Add Lab"))
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
+    
     def post(self):
         lab_id=int(self.request.get("lab_id"))
         lab_name=self.request.get("lab_name")

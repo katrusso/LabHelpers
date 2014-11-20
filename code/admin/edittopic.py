@@ -11,8 +11,12 @@ import topic
 import coach
 import admin
 
-#interface for the topic adding (works the same way as the question one
+
 class EditTopic(admin.AdminPage):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO EDIT THE 
+    DATASTORE CONTENT: TOPICS AND TOPIC ATTRIBUTES.
+    '''
     def __write_link_to_admin__(self):
         self.response.write(LINK_HTML.substitute(link="/admin",
                                                  text="Return to Admin Page"))

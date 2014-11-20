@@ -11,15 +11,19 @@ import questions
 import topic
 
 class AdminPage(webapp2.RequestHandler):
-    def get(self):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO ADD-TO OR EDIT THE 
+    DATASTORE / WEBSITE CONTENT.
+    '''
+    def get(self):                                                                  #ADMIN USER VERIFICATION
         if not users.is_current_user_admin(): 
             self.abort(403)
         self.__write_link_to_admin__()
         self.response.write("<br>")
         self.__write_html__()
 
-#admin page that leads to either the topic adder or question adder
-class Admin(AdminPage):
+
+class Admin(AdminPage):                                                             #ADMIN INTERFACE
     def __write_link_to_admin__(self):
         return
     def __write_html__(self):

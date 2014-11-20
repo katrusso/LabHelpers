@@ -14,10 +14,15 @@ import lab
 import questions
 
 class EditQuestion(admin.AdminPage):
+    '''
+    THIS CLASS PROVIDES AN INTERFACE FOR ALLOWING AN ADMIN USER TO EDIT THE 
+    DATASTORE CONTENT: QUESTIONS AND QUESTION ATTRIBUTES.
+    '''
     def __write_link_to_admin__(self):
         self.response.write(LINK_HTML.substitute(link="/admin",
                                                  text="Return to Admin Page"))
         self.response.write("<br>")
+        
     def __write_html__(self):
         self.response.write(OPEN_HTML.substitute(head=""))
         self.response.write(FORM_HTML.substitute(action="",method="post"))
@@ -25,9 +30,8 @@ class EditQuestion(admin.AdminPage):
         self.response.write(SUBMIT_HTML.substitute(value="List Questions"))
         self.response.write(CLOSE_FORM_HTML)
         self.response.write(CLOSE_HTML)
-    def post(self):
-        
-        #gets the questions for the specific lab ID
+    
+    def post(self):                                                                 #RETRIEVES QUESTIONS FOR THE SPECIFIC LAB ID
         lab_id = int(self.request.get("labid"))
         questions_query = questions.Question.query(
             ancestor=questions.lab_key(lab_id))
