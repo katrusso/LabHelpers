@@ -1,9 +1,8 @@
+from google.appengine.ext import ndb                #GOOGLE APP ENGINE DATASTORE
 
-from google.appengine.ext import ndb
-
-def lab_key(lab_id=0):
+def lab_key(lab_id=0):                              #KEY ASSOCIATED WITH LAB ID
     return ndb.Key('LabClasses',lab_id)
 
-class Lab(ndb.Model):
-    name = ndb.StringProperty()
-    id = ndb.IntegerProperty()
+class Lab(ndb.Model):                               #LAB MODEL AND ITS RESPECTIVE ATTRIBUTES
+    name = ndb.StringProperty()                     #LAB NAME
+    id = ndb.IntegerProperty()                      #LAB ID

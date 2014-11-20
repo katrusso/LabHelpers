@@ -1,4 +1,4 @@
-from google.appengine.ext import ndb
+from google.appengine.ext import ndb                                    #GOOGLE APP ENGINE DATASTORE
 
 def sign_in(page, nickname):
     user_query = User.query(
@@ -10,28 +10,29 @@ def sign_in(page, nickname):
     return user_object
 
 
-def user_key(username):
+def user_key(username):                                                 #USER KEY ASSOCIATED WITH USERNAME
     return ndb.Key('User',username)
 
-def lab_response_key(lab_id,username):
+def lab_response_key(lab_id,username):                                  #LAB RESPONSE KEY ASSOCIATED WITH USERNAME AND LAB ID
     return ndb.Key('Responses',lab_id,'user',username)
 
-class LabResponses(ndb.Model):
-    responses = ndb.IntegerProperty(repeated=True)
-    correct = ndb.IntegerProperty(repeated=True)
+class LabResponses(ndb.Model):                                          #LAB RESPONSES MODEL AND ITS RESPECTIVE ATTRIBUTES
+    responses = ndb.IntegerProperty(repeated=True)                      #USER RESPONSES
+    correct = ndb.IntegerProperty(repeated=True)                        #CORRECT RESPONSES
 
-class User(ndb.Model):
-    def __query_responses__(self,lab_id,username):
+class User(ndb.Model):                                                  #USER MODEL AND ITS RESPECTIVE ATTRIBUTES
+    def __query_responses__(self,lab_id,username):                      #GET USER RESPONSES FROM DATASTORE
         lab_responses = LabResponses.query(
             ancestor=lab_response_key(lab_id,username))
         return lab_responses.fetch()
-    def __add_responses__(self,lab_id,username,responses,correct):
+    
+    def __add_responses__(self,lab_id,username,responses,correct):      #SAVE USER RESPONSES TO DATASTORE
         lab_responses = LabResponses(
             parent=lab_response_key(lab_id,username))
         lab_responses.responses=responses
         lab_responses.correct=correct
         lab_responses.put()
 
-    rin_number = ndb.StringProperty()
-    lab_ids = ndb.IntegerProperty(repeated=True)
+    rin_number = ndb.StringProperty()                                   #USER RIN NUMBER
+    lab_ids = ndb.IntegerProperty(repeated=True)                        #LAB IDS ASSOCIATED WITH USER
     
