@@ -19,18 +19,22 @@ class DynamicLabPage(labpages.LabPage):
     THIS ASSESSMENT IS BASED ON THE GRADING (BY TOPIC) OF THE STUDENT'S PRECURSORY 
     STATIC LAB.
     '''
-    
-    def __get_labID__(self):                                                        
+    def __get_labID__(self):                                                    #4444 IS THE LAB ID FOR CUSTOM GENERATED PRACTICE SETS                                             
         return 4444
-    def __get_lab_name__(self):
+        
+    def __get_lab_name__(self):                                                 #GETS LAB NAME (GENERIC FOR CUSTOM PROBLEMS)
         return "Practice Problems"
-    def __write_header__(self):
+        
+    def __write_header__(self):                                                 #CREATES A SMALL HEADER
         write_css_html(self,"Practice Problems")
-    def __get_responses__(self,user_object):
+        
+    def __get_responses__(self,user_object):                                    #GETS USER RESPONSES
         return []
-    def __add_responses__(self,user_object,lab_id,responses,correct):
+        
+    def __add_responses__(self,user_object,lab_id,responses,correct):           #SAVES USER RESPONSES
         return;
-    def __gather_questions__(self,sort_by_topic):
+        
+    def __gather_questions__(self,sort_by_topic):                               #RETRIEVES CUSTOM QUESTIONS FROM DATASTORE
         self.question_list=[]
         lab_id=4444
         topics = self.request.get_all("topics")
