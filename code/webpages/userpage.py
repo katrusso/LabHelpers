@@ -11,7 +11,6 @@ import userclass
 
 from html_constants import *
 
-#main page that is initially run
 class SignUp(webapp2.RequestHandler):
     '''
     THIS IS THE PAGE THE STUDENT FIRST ENCOUNTERS WHEN VISITING THE SITE. IT PROMPTS THEM 
