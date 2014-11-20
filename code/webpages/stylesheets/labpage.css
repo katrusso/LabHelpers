@@ -1,3 +1,4 @@
+
 h1{
 	display: inline;
 	color: #black;
@@ -12,7 +13,6 @@ h1{
 }
 
 h2{
-	
 	color: #black;
 	letter-spacing: 1px;
 	background-color: #f7f7f7;
@@ -27,7 +27,6 @@ h2{
 }
 
 .sub-heading{
-	
 	color: #black;
 	letter-spacing: 1px;
 	background-color: #f7f7f7;
@@ -47,7 +46,6 @@ h2{
 	margin-left: -15px;
 }
 
-
 .question-body{		
 	padding: 30px;
 	float: left;
@@ -60,10 +58,8 @@ h2{
 	-moz-box-shadow: inset 0 1px 1px #937c7b, 0 25px hsl(0, 0%, 96%);
 	box-shadow: inset 0 1px 1px #937c7b, 0 25px hsl(0, 0%, 96%);
 	border-left: 50px solid #f7f7f7;
-	border-right: 50px solid #f7f7f7;
-	
+	border-right: 50px solid #f7f7f7;	
 }
-
 
 .question{
 	color: #278998;
@@ -78,6 +74,7 @@ h2{
 .incorrect{
     color: red;
 }
+
 .answer{
     font-weight:bold;
 }
@@ -94,7 +91,6 @@ h2{
 	font-weight: bold;
 	padding-bottom: 3px;
 }
-
 
 .doc-image{
 	display: inline;
