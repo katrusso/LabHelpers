@@ -11,11 +11,16 @@ import questions
 import userclass
 from html_constants import *
 
-#Implements the gatherQuestions function to select questions based on 
-#poorly completed topics
+
 class DynamicLabPage(labpages.LabPage):
-    #Gets the id of the lab from the url
-    def __get_labID__(self):
+    '''
+    THIS CLASS IMPLEMENTS THE GATHER-QUESTIONS FUNCTION TO SELECT CUSTOM PRACTICE 
+    QUESTIONS FROM THE DATASTORE BASED ON THE USER'S POOR PERFORMANCE IN SPECIFIC TOPICS.  
+    THIS ASSESSMENT IS BASED ON THE GRADING (BY TOPIC) OF THE STUDENT'S PRECURSORY 
+    STATIC LAB.
+    '''
+    
+    def __get_labID__(self):                                                        
         return 4444
     def __get_lab_name__(self):
         return "Practice Problems"
