@@ -22,11 +22,9 @@ import addlab
 import userclass
 import lab
 
-
-
 from html_constants import *
 
-#main page that is initially run
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         """
