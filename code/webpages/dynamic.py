@@ -4,12 +4,12 @@ import cgi
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import webapp2
+import webapp2                                                                  #FRAMEWORK
 
-import labpages
+import labpages                                                                 #RELEVANT CLASSES
 import questions
 import userclass
-from html_constants import *
+from html_constants import *                                                    #REDUCES CODE REDUNDANCIES
 
 
 class DynamicLabPage(labpages.LabPage):
