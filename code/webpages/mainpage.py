@@ -27,7 +27,7 @@ from html_constants import *
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        """
+        '''
         THIS METHOD PROMPTS THE USER TO LOG IN VIA GMAIL AUTHENTICATION, THEN LOADS THE 
         MAIN PAGE, INCLUDING THE ASSOCIATED STYLE SHEET. 
         
@@ -36,25 +36,23 @@ class MainPage(webapp2.RequestHandler):
         NEXT, NAVIGATION LINKS ARE LISTED, FOLLOWED BY A SECTION DEDICATED TO LABS 
         ASSOCIATED WITH THAT PARTICULAR USER.
          
-        """
+        '''
         username = users.get_current_user()
         if username:
             user_object = userclass.sign_in(self,username.nickname())
             
-            #homepage stylesheet
-            self.response.write(OPEN_HTML.substitute(head='''<link type="   
-            text/css" rel="stylesheet" href="/stylesheets/home.css" 
-                />'''))
+            self.response.write(OPEN_HTML.substitute(head='''<link 
+            rel="stylesheet" href="/stylesheets/home.css" />'''))                   #STYLESHEET - MAIN
             
-            #header
-            self.response.write(CSS_HTML.substitute(id="header"))
+        
+            self.response.write(CSS_HTML.substitute(id="header"))                   #STYLESHEET - HEADER
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<h1>LabHelpers</h1>")
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#header
 
-            #navigation links
-            self.response.write(CSS_HTML.substitute(id="nav"))
+           
+            self.response.write(CSS_HTML.substitute(id="nav"))                      #LINKS - NAVIGATION
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             self.response.write("<br>")
@@ -68,8 +66,8 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#nav
 
-            #lab links
-            self.response.write(CSS_HTML.substitute(id="content"))
+            
+            self.response.write(CSS_HTML.substitute(id="content"))                  #LINKS - LABS
             self.response.write("<br>")
             self.response.write(ALIGN_HTML.substitute(align="center"))
             lab_query = lab.Lab.query(ancestor=lab.lab_key(1)).order(lab.Lab.id)
@@ -83,8 +81,8 @@ class MainPage(webapp2.RequestHandler):
             self.response.write(CLOSE_ALIGN_HTML)
             self.response.write(CLOSE_CSS_HTML)#content
             
-            #footer / content sources
-            self.response.write(CSS_HTML.substitute(id="footer"))
+            
+            self.response.write(CSS_HTML.substitute(id="footer"))                   #FOOTER - CONTENT ACKNOWLEDGEMENTS
             self.response.write("<br>")
             self.response.write(TAB_HTML)
             self.response.write("Content from Physics II Laboratory Manual by Scott Dwyer<br>")
@@ -93,13 +91,13 @@ class MainPage(webapp2.RequestHandler):
             self.response.write("</div>")#footer
             
                 
-        # If user is not logged in redirect to log in
+                                                                                    #IF NOT LOGGED IN YET, REDIRECTS USER TO LOGIN 
         else:
             self.redirect(users.create_login_url(self.request.uri))
     def post(self):
         self.redirect(users.create_login_url(self.request.uri))
 
-#List of all pages for the application
+                                                                                    #LIST OF ALL PAGES FOR THE APPLICATION
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/signup', userpage.SignUp),
