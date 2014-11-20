@@ -13,13 +13,19 @@ from html_constants import *
 
 #main page that is initially run
 class SignUp(webapp2.RequestHandler):
+    '''
+    THIS IS THE PAGE THE STUDENT FIRST ENCOUNTERS WHEN VISITING THE SITE. IT PROMPTS THEM 
+    TO LOG INTO THEIR GMAIL ACCOUNT FOR AUTHENTICATION PURPOSES, THEN ENTER THEIR RIN 
+    TO SIGN-UP FOR ACCESS TO THE LABS. FURTHER, IT ACCESS THEIR WORK AT A LATER DATE AS 
+    IT IS ASSOCIATED WITH THEIR ACCOUNT DATA. 
+    '''
     def __write_submission__(self):
-        username = users.get_current_user()
+        username = users.get_current_user()                                         #PROMPTS USER TO LOGIN
         nickname = username.nickname()
         self.response.write(FORM_HTML.substitute(action="",
                                                  method="post"))
         self.response.write("Welcome "+ nickname)
-        self.response.write("<br>Please enter your 9 digit RIN")
+        self.response.write("<br>Please enter your 9 digit RIN")                    #PROMPTS USER FOR RIN
         self.response.write(TEXTBOX_HTML.substitute(name="rin",
                                                     row=1,
                                                     col=9,
@@ -34,7 +40,7 @@ class SignUp(webapp2.RequestHandler):
         
     def post(self):
         rin = self.request.get("rin")
-        self.response.write(OPEN_HTML.substitute(head=""))
+        self.response.write(OPEN_HTML.substitute(head=""))                          #VERIFIES RIN FORMAT IS CORRECT
         if len(rin)!=9:
             self.response.write("[ERROR] RIN is 9 digits long")
         elif not(rin.isnumeric()):
@@ -46,5 +52,5 @@ class SignUp(webapp2.RequestHandler):
             user.rin=rin
             user.put()
             self.redirect("/")
-        self.__write_submission__()
+        self.__write_submission__()                                                 #SUBMITS
         self.response.write(CLOSE_HTML)
